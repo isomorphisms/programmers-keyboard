@@ -4,6 +4,13 @@ regular expressions start end all any
 START OF LINE
 END OF LINE
 END OF SLURP
-all  ("greedy")
-some ("non greedy")
-maybe (ok if not)
+maybe (ok if not?)
+big capture ("greedy")
+small capture ("non greedy")
+group of characters in exactly this order ()
+any character from this list []
+letter
+number
+non weird character
+weird character
+incantation runes (control characters)
