@@ -1,0 +1,49 @@
+name: Render keypads
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    container: ghcr.io/stefan-hoeck/idris2-pack@sha256:b09b2c28f3c5857650ea3d366caf37ac99380c12a6a6cf65ea037da4023f70c3
+    timeout-minutes: 30
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Select tested Idris2 package collection
+        run: pack switch nightly-260814
+
+      - name: Compile renderer
+        run: idris2 --build render-keypads/render-keypads.ipkg
+
+      - name: Render SVG files
+        run: ./render-keypads/build/exec/render-keypads
+
+      - name: Convert SVG files to PNG and PGM
+        run: |
+          apt-get update
+          apt-get install --yes --no-install-recommends imagemagick librsvg2-bin
+          bash render-keypads/convert-to-png.sh
+
+      - name: Check Idris2-generated SVG files
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          git -C "$GITHUB_WORKSPACE" diff --exit-code -- "pictures of the keypads"/*.svg
+
+      - name: Upload generated pictures
+        uses: actions/upload-artifact@v4
+        with:
+          name: keypad-pictures
+          path: |
+            pictures of the keypads/*.svg
+            pictures of the keypads/*.pgm
+            pictures of the keypads/*.png

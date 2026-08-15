@@ -1,0 +1,8 @@
+package render-keypads
+
+version = 0.1.0
+sourcedir = "src"
+
+modules = Renderer
+main = Renderer
+executable = render-keypads
