@@ -1,0 +1,38 @@
+classic programming symbols ([{ lambda dereference_pointer address_of comment assignment heredoc enclose_a_single_idea function_composition
+===========================================================================================================================================
+
+TALL LEFT DELIMITER  —  { / ( / [
+TALL RIGHT DELIMITER  —  } / ) / ]
+⟨ ⟩  PAIRED DELIMITER
+λ
+ƒ
+=def / ≝  DEFINITION
+←  ASSIGN
+→  ASSIGN
+∘  COMPOSE
+&  ADDRESS
+*  DEREFERENCE
+*  POINTER TYPE
+*  SPLAT
+$  PERL SCALAR
+@  PERL ARRAY
+%  PERL HASH
+.
+:
+;
+'
+`
+"
+/
+\
+|
+#  COMMENT
+“ ”  PAIRED QUOTES
+« »  PAIRED QUOTES
+𝔽  FLOAT
+DD  DOUBLE
+CC  CHAR
+SS  STRING
+DO
+LOOP
+f"""  START TEXT

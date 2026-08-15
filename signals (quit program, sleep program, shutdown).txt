@@ -1,0 +1,9 @@
+signals (quit program, sleep program, shutdown)
+==============================================
+
+QUIT PROGRAM  —  SIGINT
+SLEEP PROGRAM  —  SIGTSTP
+WAKE PROGRAM  —  SIGCONT
+SHUTDOWN  —  SIGTERM  [hold]
+QUIT AND DUMP  —  SIGQUIT
+KILL PROGRAM  —  SIGKILL  [guarded]

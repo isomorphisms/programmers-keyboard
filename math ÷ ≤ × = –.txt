@@ -1,0 +1,11 @@
+math ÷ ≤ × = –
+==============
+
++  ADD
+−  SUBTRACT
+×  MULTIPLY
+÷  DIVIDE
+=  EQUAL
+≠  NOT EQUAL
+< / ≤
+> / ≥

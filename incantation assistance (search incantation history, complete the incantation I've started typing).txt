@@ -1,0 +1,6 @@
+incantation assistance (search incantation history, complete the incantation I've started typing)
+=================================================================================================
+
+TAB / COMPLETE
+FINISH INCANTATION
+CHANT HISTORY  —  Ctrl-R

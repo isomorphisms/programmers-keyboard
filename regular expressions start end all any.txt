@@ -1,0 +1,8 @@
+regular expressions start end all any
+=====================================
+
+START OF LINE
+END OF LINE
+END OF SLURP
+EVERYTHING
+SOMETHING
