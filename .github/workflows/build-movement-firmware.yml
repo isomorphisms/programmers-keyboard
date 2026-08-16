@@ -1,0 +1,53 @@
+name: Build Movement keypad firmware
+
+on:
+  push:
+    paths:
+      - "firmware/movement-rp2040/**"
+      - ".github/workflows/build-movement-firmware.yml"
+  pull_request:
+    paths:
+      - "firmware/movement-rp2040/**"
+      - ".github/workflows/build-movement-firmware.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Check out keyboard repository
+        uses: actions/checkout@v4
+
+      - name: Check out Raspberry Pi Pico SDK
+        uses: actions/checkout@v4
+        with:
+          repository: raspberrypi/pico-sdk
+          path: pico-sdk
+          submodules: recursive
+
+      - name: Install Arm embedded compiler
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gcc-arm-none-eabi libnewlib-arm-none-eabi
+
+      - name: Configure firmware
+        env:
+          PICO_SDK_PATH: ${{ github.workspace }}/pico-sdk
+        run: cmake -S firmware/movement-rp2040 -B build/movement-rp2040
+
+      - name: Build UF2
+        env:
+          PICO_SDK_PATH: ${{ github.workspace }}/pico-sdk
+        run: cmake --build build/movement-rp2040 --parallel
+
+      - name: Upload flashable UF2
+        uses: actions/upload-artifact@v4
+        with:
+          name: movement-keypad-uf2
+          path: build/movement-rp2040/movement_keypad.uf2
+          if-no-files-found: error
