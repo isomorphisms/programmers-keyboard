@@ -1,0 +1,17 @@
+{
+  "name": "programmers-keyboard-pcb",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "export:movement": "tsci export movement-prototype.tsx --format gerbers --output ../fabrication/movement-prototype-gerbers.zip"
+  },
+  "dependencies": {
+    "@tscircuit/common": "0.0.57",
+    "@tscircuit/eval": "0.0.1217",
+    "@types/react": "19.1.12",
+    "tscircuit": "0.0.2350",
+    "typescript": "5.9.3"
+  }
+}

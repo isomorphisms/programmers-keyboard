@@ -1,0 +1,97 @@
+name: Verify Movement prototype Gerbers
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "pcb/**"
+      - "fabrication/**"
+      - ".github/workflows/generate-movement-gerbers.yml"
+  pull_request:
+    paths:
+      - "pcb/**"
+      - "fabrication/**"
+      - ".github/workflows/generate-movement-gerbers.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  fabricate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Set up Bun for the tscircuit CLI
+        uses: oven-sh/setup-bun@v2
+
+      - name: Install pinned tscircuit dependencies
+        working-directory: pcb
+        run: npm ci
+
+      - name: Type-check the board
+        working-directory: pcb
+        run: npm run typecheck
+
+      - name: Save the committed deterministic outputs
+        run: cp -a fabrication /tmp/committed-fabrication
+
+      - name: Regenerate Circuit JSON, previews, netlist, and Gerbers
+        working-directory: pcb
+        run: |
+          npx tsci export movement-prototype.tsx --format circuit-json --output ../fabrication/movement-prototype.circuit.json
+          npx tsci export movement-prototype.tsx --format pcb-svg --output ../fabrication/movement-prototype-pcb.svg
+          npx tsci export movement-prototype.tsx --format schematic-svg --output ../fabrication/movement-prototype-schematic.svg
+          npx tsci export movement-prototype.tsx --format readable-netlist --output ../fabrication/movement-prototype-readable.netlist
+          npx tsci export movement-prototype.tsx --format gerbers --output ../fabrication/movement-prototype-gerbers.zip
+
+      - name: Extract and validate the regenerated fabrication files
+        run: |
+          rm -rf fabrication/movement-prototype-gerbers
+          mkdir -p fabrication/movement-prototype-gerbers
+          unzip -q fabrication/movement-prototype-gerbers.zip -d fabrication/movement-prototype-gerbers
+          node pcb/scripts/validate-output.mjs
+          find fabrication/movement-prototype-gerbers -maxdepth 1 -type f -printf '%f %s bytes\n' | sort
+
+      - name: Compare stable fabrication content with the committed package
+        run: |
+          cmp /tmp/committed-fabrication/movement-prototype-pcb.svg fabrication/movement-prototype-pcb.svg
+          cmp /tmp/committed-fabrication/movement-prototype-schematic.svg fabrication/movement-prototype-schematic.svg
+          cmp /tmp/committed-fabrication/movement-prototype-readable.netlist fabrication/movement-prototype-readable.netlist
+
+          for generated in fabrication/movement-prototype-gerbers/*; do
+            name="$(basename "$generated")"
+            committed="/tmp/committed-fabrication/movement-prototype-gerbers/$name"
+            case "$name" in
+              *.gbr|*.drl)
+                sed -E '/CreationDate|Created by tscircuit|DRILL file.*date/d' "$committed" > "/tmp/committed-$name"
+                sed -E '/CreationDate|Created by tscircuit|DRILL file.*date/d' "$generated" > "/tmp/generated-$name"
+                cmp "/tmp/committed-$name" "/tmp/generated-$name"
+                ;;
+              *)
+                cmp "$committed" "$generated"
+                ;;
+            esac
+          done
+
+      - name: Upload the complete regenerated package
+        uses: actions/upload-artifact@v4
+        with:
+          name: movement-prototype-fabrication
+          path: |
+            fabrication/movement-prototype.circuit.json
+            fabrication/movement-prototype-pcb.svg
+            fabrication/movement-prototype-schematic.svg
+            fabrication/movement-prototype-readable.netlist
+            fabrication/movement-prototype-gerbers.zip
+            fabrication/movement-prototype-gerbers/
