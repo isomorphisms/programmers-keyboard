@@ -1,0 +1,53 @@
+name: Build Programming lambda CH552 firmware
+
+on:
+  push:
+    paths:
+      - "firmware/programming_lambda_ch552/**"
+      - ".github/workflows/build-programming-lambda-ch552.yml"
+  pull_request:
+    paths:
+      - "firmware/programming_lambda_ch552/**"
+      - ".github/workflows/build-programming-lambda-ch552.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Check out keyboard repository
+        uses: actions/checkout@v4
+
+      - name: Install Arduino CLI
+        uses: arduino/setup-arduino-cli@v2
+
+      - name: Install CH55xduino 0.0.26
+        env:
+          CH55X_INDEX: https://raw.githubusercontent.com/DeqingSun/ch55xduino/ch55xduino/package_ch55xduino_mcs51_index.json
+        run: |
+          arduino-cli core update-index --additional-urls "$CH55X_INDEX"
+          arduino-cli core install CH55xDuino:mcs51@0.0.26 --additional-urls "$CH55X_INDEX"
+
+      - name: Check out CH55xduino HID support
+        uses: actions/checkout@v4
+        with:
+          repository: DeqingSun/ch55xduino
+          ref: ch55xduino
+          path: ch55xduino-src
+
+      - name: Build CH552 hex
+        env:
+          CH55XDUINO_SOURCE: ${{ github.workspace }}/ch55xduino-src
+        run: ./firmware/programming_lambda_ch552/build.sh
+
+      - name: Upload flashable CH552 hex
+        uses: actions/upload-artifact@v4
+        with:
+          name: programming-lambda-ch552-hex
+          path: build/programming-lambda-ch552/*.hex
+          if-no-files-found: error
