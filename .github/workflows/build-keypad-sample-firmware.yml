@@ -1,0 +1,69 @@
+name: Build remaining RP2040 keypad samples
+
+on:
+  push:
+    paths:
+      - "firmware/keypad-samples-rp2040/**"
+      - ".github/workflows/build-keypad-sample-firmware.yml"
+  pull_request:
+    paths:
+      - "firmware/keypad-samples-rp2040/**"
+      - ".github/workflows/build-keypad-sample-firmware.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+
+    steps:
+      - name: Check out keyboard repository
+        uses: actions/checkout@v4
+
+      - name: Check out Raspberry Pi Pico SDK 2.2.0
+        uses: actions/checkout@v4
+        with:
+          repository: raspberrypi/pico-sdk
+          ref: 2.2.0
+          path: pico-sdk
+          submodules: recursive
+
+      - name: Install Arm embedded compiler
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gcc-arm-none-eabi libnewlib-arm-none-eabi
+
+      - name: Configure firmware
+        env:
+          PICO_SDK_PATH: ${{ github.workspace }}/pico-sdk
+        run: cmake -S firmware/keypad-samples-rp2040 -B build/keypad-samples-rp2040
+
+      - name: Build UF2 files
+        env:
+          PICO_SDK_PATH: ${{ github.workspace }}/pico-sdk
+        run: cmake --build build/keypad-samples-rp2040 --parallel
+
+      - name: Verify all sample UF2 files exist
+        run: |
+          test -s build/keypad-samples-rp2040/concept_separation_keypad.uf2
+          test -s build/keypad-samples-rp2040/incantation_keypad.uf2
+          test -s build/keypad-samples-rp2040/math_keypad.uf2
+          test -s build/keypad-samples-rp2040/regex_keypad.uf2
+          test -s build/keypad-samples-rp2040/pastebins_keypad.uf2
+          test -s build/keypad-samples-rp2040/signals_keypad.uf2
+
+      - name: Upload flashable UF2 samples
+        uses: actions/upload-artifact@v4
+        with:
+          name: keypad-samples-rp2040-uf2
+          path: |
+            build/keypad-samples-rp2040/concept_separation_keypad.uf2
+            build/keypad-samples-rp2040/incantation_keypad.uf2
+            build/keypad-samples-rp2040/math_keypad.uf2
+            build/keypad-samples-rp2040/regex_keypad.uf2
+            build/keypad-samples-rp2040/pastebins_keypad.uf2
+            build/keypad-samples-rp2040/signals_keypad.uf2
+          if-no-files-found: error
