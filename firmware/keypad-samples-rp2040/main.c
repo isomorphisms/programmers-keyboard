@@ -124,7 +124,9 @@ static const chord_t macro_not_equal[] = {
     {0, HID_KEY_2}, {0, HID_KEY_2}, {0, HID_KEY_6}, {0, HID_KEY_0},
     {0, HID_KEY_ENTER},
 };
-static const chord_t macro_less[] = {{0, HID_KEY_COMMA}};
+static const chord_t macro_less[] = {
+    {KEYBOARD_MODIFIER_LEFTSHIFT, HID_KEY_COMMA},
+};
 static const chord_t macro_less_equal[] = {
     {KEYBOARD_MODIFIER_LEFTCTRL | KEYBOARD_MODIFIER_LEFTSHIFT, HID_KEY_U},
     {0, HID_KEY_2}, {0, HID_KEY_2}, {0, HID_KEY_6}, {0, HID_KEY_4},
