@@ -5,8 +5,29 @@
 #include "tusb.h"
 
 #define USB_VID 0xCAFE
-#define USB_PID 0x4005
 #define USB_BCD 0x0100
+
+#if KEYPAD_LAYOUT == 1
+#define USB_PID 0x4010
+#define USB_PRODUCT "Concept Separation keypad"
+#elif KEYPAD_LAYOUT == 2
+#define USB_PID 0x4011
+#define USB_PRODUCT "Incantation keypad"
+#elif KEYPAD_LAYOUT == 3
+#define USB_PID 0x4012
+#define USB_PRODUCT "Math keypad"
+#elif KEYPAD_LAYOUT == 4
+#define USB_PID 0x4013
+#define USB_PRODUCT "Regex keypad"
+#elif KEYPAD_LAYOUT == 5
+#define USB_PID 0x4014
+#define USB_PRODUCT "Pastebins keypad"
+#elif KEYPAD_LAYOUT == 6
+#define USB_PID 0x4015
+#define USB_PRODUCT "Signals keypad"
+#else
+#error KEYPAD_LAYOUT must select a known USB identity
+#endif
 
 tusb_desc_device_t const device_descriptor = {
     .bLength = sizeof(tusb_desc_device_t),
@@ -72,7 +93,7 @@ enum {
 static char const *string_descriptors[] = {
     (const char[]){0x09, 0x04},
     "programmers-keyboard",
-    "RP2040 keypad sample",
+    USB_PRODUCT,
     NULL,
 };
 
