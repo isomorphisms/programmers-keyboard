@@ -141,19 +141,26 @@ static const chord_t macro_greater_equal[] = {
     {0, HID_KEY_ENTER},
 };
 
+/*
+ * The rendered Math layout has eight faces.  Its last two source entries are
+ * paired meanings (< / <= and > / >=).  The sample treats those faces as
+ * two-contact rockers: positions 6/10 are the two less-than contacts and
+ * positions 7/11 are the two greater-than contacts.
+ */
 static const key_binding_t keymap[KEY_COUNT] = {
-    BIND(macro_add),
-    BIND(macro_subtract),
-    BIND(macro_multiply),
-    BIND(macro_divide),
-    BIND(macro_equal),
-    BIND(macro_not_equal),
-    BIND(macro_less),
-    BIND(macro_less_equal),
-    BIND(macro_greater),
-    BIND(macro_greater_equal),
-    UNUSED_BINDING, UNUSED_BINDING, UNUSED_BINDING,
-    UNUSED_BINDING, UNUSED_BINDING, UNUSED_BINDING,
+    BIND(macro_add),             /* 0: ADD */
+    BIND(macro_subtract),        /* 1: SUBTRACT */
+    BIND(macro_multiply),        /* 2: MULTIPLY */
+    BIND(macro_divide),          /* 3: DIVIDE */
+    BIND(macro_equal),           /* 4: EQUAL */
+    BIND(macro_not_equal),       /* 5: NOT EQUAL */
+    BIND(macro_less),            /* 6: < rocker contact */
+    BIND(macro_greater),         /* 7: > rocker contact */
+    UNUSED_BINDING,              /* 8 */
+    UNUSED_BINDING,              /* 9 */
+    BIND(macro_less_equal),      /* 10: <= rocker contact */
+    BIND(macro_greater_equal),   /* 11: >= rocker contact */
+    UNUSED_BINDING, UNUSED_BINDING, UNUSED_BINDING, UNUSED_BINDING,
 };
 
 #elif KEYPAD_LAYOUT == LAYOUT_REGEX
@@ -214,6 +221,7 @@ static const chord_t macro_control_characters[] = {
     {KEYBOARD_MODIFIER_LEFTSHIFT, HID_KEY_BRACKET_RIGHT},
 };
 
+/* The 13-key regex text list has no updated rendered row layout yet. */
 static const key_binding_t keymap[KEY_COUNT] = {
     BIND(macro_start_line),
     BIND(macro_end_line),
@@ -244,12 +252,12 @@ static const chord_t macro_write_1[] = {{0, HID_KEY_F19}};
 static const chord_t macro_write_2[] = {{0, HID_KEY_F20}};
 static const chord_t macro_write_3[] = {{0, HID_KEY_F21}};
 
+/* Preserve the rendered 3 x 3 rows inside the common 4 x 4 matrix. */
 static const key_binding_t keymap[KEY_COUNT] = {
-    BIND(macro_view_1), BIND(macro_view_2), BIND(macro_view_3),
-    BIND(macro_remember_1), BIND(macro_remember_2), BIND(macro_remember_3),
-    BIND(macro_write_1), BIND(macro_write_2), BIND(macro_write_3),
+    BIND(macro_view_1), BIND(macro_view_2), BIND(macro_view_3), UNUSED_BINDING,
+    BIND(macro_remember_1), BIND(macro_remember_2), BIND(macro_remember_3), UNUSED_BINDING,
+    BIND(macro_write_1), BIND(macro_write_2), BIND(macro_write_3), UNUSED_BINDING,
     UNUSED_BINDING, UNUSED_BINDING, UNUSED_BINDING, UNUSED_BINDING,
-    UNUSED_BINDING, UNUSED_BINDING, UNUSED_BINDING,
 };
 
 #elif KEYPAD_LAYOUT == LAYOUT_SIGNALS
@@ -265,16 +273,12 @@ static const chord_t macro_sigterm[] = {{0, HID_KEY_F16}};
 static const chord_t macro_sigquit[] = {{0, HID_KEY_F17}};
 static const chord_t macro_sigkill[] = {{0, HID_KEY_F18}};
 
+/* Preserve the rendered two rows of three keys inside the 4 x 4 matrix. */
 static const key_binding_t keymap[KEY_COUNT] = {
-    BIND(macro_sigint),
-    BIND(macro_sigtstp),
-    BIND(macro_sigcont),
-    HOLD_BIND(macro_sigterm, 1000u),
-    BIND(macro_sigquit),
-    HOLD_BIND(macro_sigkill, 2000u),
+    BIND(macro_sigint), BIND(macro_sigtstp), BIND(macro_sigcont), UNUSED_BINDING,
+    HOLD_BIND(macro_sigterm, 1000u), BIND(macro_sigquit), HOLD_BIND(macro_sigkill, 2000u), UNUSED_BINDING,
     UNUSED_BINDING, UNUSED_BINDING, UNUSED_BINDING, UNUSED_BINDING,
     UNUSED_BINDING, UNUSED_BINDING, UNUSED_BINDING, UNUSED_BINDING,
-    UNUSED_BINDING, UNUSED_BINDING,
 };
 
 #else
