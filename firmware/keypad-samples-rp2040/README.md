@@ -133,6 +133,8 @@ A USB keyboard cannot itself select an arbitrary process and call `kill(2)`. The
 
 The final SIGKILL key is still expected to have a physical guard/cover. The 2 s software hold is additional sample protection, not a replacement for that hardware assumption. Host software must bind the tokens to the intended process and exact signals.
 
+Because the Pastebins and Signals samples reuse some F13–F18 transport usages, host software that binds those tokens must distinguish the originating USB device rather than treating them as global keyboard shortcuts.
+
 ## Build all six UF2 files
 
 Use Raspberry Pi Pico SDK 2.2.0 and an Arm embedded GCC toolchain:
@@ -156,6 +158,17 @@ build/keypad-samples-rp2040/signals_keypad.uf2
 
 The GitHub Actions workflow uploads those six files together as `keypad-samples-rp2040-uf2`.
 
-## Prototype USB identity
+## Prototype USB identities
 
-These samples use prototype VID/PID `CAFE:4005`. As with the existing Movement firmware, allocate a real VID/PID before distributing a product.
+The existing Programming `λ` proof already uses prototype identity `CAFE:4005`, so these samples use distinct prototype PIDs and product strings:
+
+| Layout | Prototype VID:PID |
+| --- | --- |
+| Concept Separation | `CAFE:4010` |
+| Incantation Assistance | `CAFE:4011` |
+| Math | `CAFE:4012` |
+| Regular Expressions | `CAFE:4013` |
+| Several Pastebins | `CAFE:4014` |
+| Signals | `CAFE:4015` |
+
+These are development identities, not an allocated product VID/PID range. Allocate a proper USB identity before distributing a product.
