@@ -74,7 +74,7 @@ A final PCB can choose different matrix coordinates for the second rocker contac
 
 ## Regular Expressions
 
-There is a real source discrepancy here: the newer text file defines thirteen regex meanings, while `Renderer.idr` still contains the older five-key Regex board. The firmware follows the newer thirteen-item meaning list and makes the physical arrangement explicitly provisional: 4 + 4 + 4 + 1 positions in the 4×4 sample matrix.
+The text definition, `Renderer.idr`, and the firmware now use the same thirteen meanings in the same row-major 4 + 4 + 4 + 1 arrangement. The firmware build checks that agreement before compiling the UF2, so changing any one of those three representations without updating the others fails CI.
 
 This encoder targets PCRE2/Perl-like syntax on a US keyboard layout. The semantic names stay separate from that dialect choice.
 
