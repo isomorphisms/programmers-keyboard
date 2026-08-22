@@ -4,10 +4,14 @@ on:
   push:
     paths:
       - "firmware/keypad-samples-rp2040/**"
+      - "regular expressions start end all any.txt"
+      - "render-keypads/src/Renderer.idr"
       - ".github/workflows/build-keypad-sample-firmware.yml"
   pull_request:
     paths:
       - "firmware/keypad-samples-rp2040/**"
+      - "regular expressions start end all any.txt"
+      - "render-keypads/src/Renderer.idr"
       - ".github/workflows/build-keypad-sample-firmware.yml"
   workflow_dispatch:
 
@@ -22,6 +26,9 @@ jobs:
     steps:
       - name: Check out keyboard repository
         uses: actions/checkout@v4
+
+      - name: Verify Regex layout agreement
+        run: python3 firmware/keypad-samples-rp2040/verify_regex_layout.py
 
       - name: Check out Raspberry Pi Pico SDK 2.2.0
         uses: actions/checkout@v4
