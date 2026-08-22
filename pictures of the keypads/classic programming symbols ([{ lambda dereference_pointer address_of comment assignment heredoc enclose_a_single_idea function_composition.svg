@@ -15,8 +15,11 @@
 <rect x="820" y="82" width="190" height="76" rx="9" fill="white" stroke="#111" stroke-width="2"/>
 <text x="915" y="108" text-anchor="middle" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#111">DEFINITION</text>
 <rect x="1020" y="82" width="190" height="76" rx="9" fill="white" stroke="#111" stroke-width="2"/>
-<text x="1115" y="108" text-anchor="middle" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#111">RIGHT</text>
-<text x="1115" y="128" text-anchor="middle" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#111">DELIMITERS</text>
+<text x="1115" y="108" text-anchor="middle" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#111">[[ ]]</text>
+<text x="1115" y="128" text-anchor="middle" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#111">EVALUATE</text>
+<rect x="1220" y="82" width="190" height="76" rx="9" fill="white" stroke="#111" stroke-width="2"/>
+<text x="1315" y="108" text-anchor="middle" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#111">RIGHT</text>
+<text x="1315" y="128" text-anchor="middle" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#111">DELIMITERS</text>
 <rect x="20" y="168" width="190" height="76" rx="9" fill="white" stroke="#111" stroke-width="2"/>
 <text x="115" y="194" text-anchor="middle" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#111">ASSIGN</text>
 <text x="115" y="214" text-anchor="middle" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#111">LEFT</text>
