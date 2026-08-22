@@ -221,7 +221,7 @@ static const chord_t macro_control_characters[] = {
     {KEYBOARD_MODIFIER_LEFTSHIFT, HID_KEY_BRACKET_RIGHT},
 };
 
-/* The 13-key regex text list has no updated rendered row layout yet. */
+/* Match Renderer.idr: 13 meanings in row-major 4 + 4 + 4 + 1 positions. */
 static const key_binding_t keymap[KEY_COUNT] = {
     BIND(macro_start_line),
     BIND(macro_end_line),
