@@ -65,8 +65,11 @@ programming = MkBoard "classic programming symbols ([{ lambda dereference_pointe
 
 regex : Board
 regex = MkBoard "regular expressions start end all any"
-  [ [ three "START" "OF" "LINE", three "END" "OF" "LINE", three "END" "OF" "SLURP" ]
-  , [ one "EVERYTHING", one "SOMETHING" ]
+  [ [ three "START" "OF" "LINE", three "END" "OF" "LINE", three "END" "OF" "SLURP", two "MAYBE" "OK IF NOT?" ]
+  , [ two "BIG CAPTURE" "GREEDY", two "SMALL CAPTURE" "NON GREEDY"
+    , three "EXACT ORDER" "GROUP" "()", three "ANY FROM" "LIST" "[]" ]
+  , [ one "LETTER", one "NUMBER", two "NON WEIRD" "CHARACTER", two "WEIRD" "CHARACTER" ]
+  , [ two "INCANTATION RUNES" "CONTROL CHARACTERS" ]
   ]
 
 separation : Board
