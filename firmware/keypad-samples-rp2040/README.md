@@ -9,7 +9,7 @@ This directory extends the existing RP2040/TinyUSB pattern without claiming that
 - Several Pastebins
 - Signals
 
-The routed Movement board remains in `firmware/movement-rp2040`. The Programming `λ` proof remains on `firmware/programming-lambda`; this directory does not replace either of them.
+The routed Movement board remains in `firmware/movement-rp2040`. The Programming `λ` proof remains on the separate `firmware/programming-lambda` branch; this directory does not replace either of them.
 
 ## Hardware assumption for these samples
 
@@ -19,6 +19,7 @@ The remaining layouts do not yet have checked-in PCB wiring, and the current Reg
 - columns: GPIO4, GPIO5, GPIO6, GPIO7
 - columns use RP2040 internal pull-ups
 - one row at a time is driven low; inactive rows float
+- each switch is wired from its column to the diode anode, with the diode cathode connected to its row, matching the routed Movement matrix direction
 - a closed switch reads low on its column
 - five consecutive 1 ms samples are required before a state change is accepted
 
@@ -54,6 +55,8 @@ The existing rendered layout is one row of three keys.
 ## Math
 
 The rendered Math layout has two rows of four faces. The text source gives the last two faces paired meanings, `< / ≤` and `> / ≥`. To preserve both meanings without inventing a tap/hold convention, the sample assumes each of those two faces is a two-contact rocker. The extra contacts occupy otherwise-unused matrix positions 10 and 11; their matrix coordinates are wiring choices, not extra visible key faces.
+
+For a concrete SPDT implementation, the `< / ≤` rocker can put its common on column 2, with one throw going through a diode to row 1 (position 6) and the other through a diode to row 2 (position 10). The `> / ≥` rocker can do the same on column 3 for positions 7 and 11. Two electrically independent normally-open contacts are equivalent. In either case the diode anode is on the contact/column side and the cathode is on the row side.
 
 Unicode operators use the same Linux Unicode-input approach as the existing Programming `λ` proof.
 
