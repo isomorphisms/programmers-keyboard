@@ -4,6 +4,7 @@ classic programming symbols ([{ lambda dereference_pointer address_of comment as
 TALL LEFT DELIMITER  —  { / ( / [
 TALL RIGHT DELIMITER  —  } / ) / ]
 ⟨ ⟩  PAIRED DELIMITER
+⟦ ⟧  PAIRED EVALUATION — emit ⟦⟧, then move left once, leaving the cursor at ⟦|⟧
 λ
 ƒ
 =def / ≝  DEFINITION
