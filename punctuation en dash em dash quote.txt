@@ -1,0 +1,11 @@
+punctuation
+
+Add dedicated punctuation choices for:
+
+–  en dash
+—  em dash
+"  quote mark
+
+The en dash has a concrete use: compact numeric/page ranges such as 31–47. It is distinct from both the hyphen-minus (-) and the mathematical minus sign (−).
+
+Exact organization, grouping, and whether quote variants should be separate keys can be decided later.
