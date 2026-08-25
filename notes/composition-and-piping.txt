@@ -1,0 +1,31 @@
+Composition and piping notation — working note
+==============================================
+
+Keep value piping distinct from function composition.
+
+|>  VALUE PIPE
+    A value is sent into the next operation.
+
+>>  THEN / POST-COMPOSE
+    Read left-to-right: f >> g means do f, then g.
+    A keycap could put THEN above >>.
+
+<<  BEFORE / PRE-COMPOSE CANDIDATE
+    If >> is retained for post-composition, << is the natural symmetric candidate
+    for the opposite direction. Do not add it as a settled key yet.
+
+∘   ORDINARY COMPOSITION
+    Keep the ring operator available for conventional mathematical composition.
+    A keycap word such as BEFORE or FIRST may make its reading direction clearer,
+    but that label is not settled yet.
+
+The visual model to optimize for is ordinary left-to-right flow:
+
+    x  --->  f  --->  g  --->  h
+
+The notation should make that path obvious rather than force the reader to remember
+which side is called left/right composition or multiplication. This matters even
+more when f, g, h represent maps or homotopies attached to a loop x on a surface S.
+
+Do not collapse |> and >> into the same operation merely because both read
+left-to-right: one pipes a value; the other composes functions.
