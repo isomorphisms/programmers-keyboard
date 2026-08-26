@@ -8,7 +8,7 @@ TALL RIGHT DELIMITER  —  } / ) / ]
 λ
 ƒ
 =def / ≝  DEFINITION
-←  ASSIGN
+⟵  ASSIGN
 →  ASSIGN
 ∘  COMPOSE
 |>  VALUE PIPE

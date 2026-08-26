@@ -54,7 +54,7 @@ programming : Board
 programming = MkBoard "classic programming symbols ([{ lambda dereference_pointer address_of comment assignment heredoc enclose_a_single_idea function_composition"
   [ [ two "LEFT" "DELIMITERS", two "PAIRED" "DELIMITER", one "LAMBDA"
     , one "FUNCTION", one "DEFINITION", two "⟦ ⟧" "EVALUATE", two "RIGHT" "DELIMITERS" ]
-  , [ two "ASSIGN" "LEFT", two "ASSIGN" "RIGHT", one "COMPOSE", one "ADDRESS"
+  , [ two "⟵" "ASSIGN", two "ASSIGN" "RIGHT", one "COMPOSE", one "ADDRESS"
     , one "DEREFERENCE", two "POINTER" "TYPE", one "SPLAT" ]
   , [ two "PERL" "SCALAR", two "PERL" "ARRAY", two "PERL" "HASH", one "DOT"
     , one "COLON", one "SEMICOLON", two "SINGLE" "QUOTE", one "BACKTICK", two "DOUBLE" "QUOTE" ]
