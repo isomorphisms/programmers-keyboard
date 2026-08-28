@@ -4,3 +4,20 @@ incantation assistance (search incantation history, complete the incantation I'v
 TAB / COMPLETE
 FINISH INCANTATION
 CHANT HISTORY  —  Ctrl-R
+
+STRUCTURED COMMAND ASSISTANCE
+NAMED ARGUMENT
+SHOW ARGUMENTS / FLAGS
+PREVIOUS FIELD
+NEXT FIELD
+START INCANTATION
+END INCANTATION
+EXAMPLES
+ASK ABOUT TOOL
+ASK ABOUT CURRENT FIELD
+
+The command editor should be able to expose the fields that exist instead of
+making the user remember punctuation and then navigate an undifferentiated text
+string.  SHOW ARGUMENTS should prefer exact command metadata.  EXAMPLES should
+show concrete uses.  ASK can use AI to answer questions about the current tool
+or field while grounding itself in that exact interface when available.
