@@ -1,0 +1,77 @@
+semantic command fields
+=======================
+
+Prompting example
+-----------------
+
+A command such as:
+
+    find . -name '*.idric' \
+      ! -path '*/compat/*' \
+      ! -path '*/parser-fixtures/*' \
+      -print0
+
+is compact once memorized, but poor as an editing surface.  The user has to
+remember punctuation, flag names, field order, and where to move the cursor to
+change one part.  A GUI feels easier partly because its fields are visible and
+directly reachable.
+
+Do not assume the keyboard has to preserve the command line as an undifferentiated
+string.  We can invent keys for semantic operations.
+
+Candidate semantic keys / operations
+------------------------------------
+
+NAMED ARGUMENT
+    Create or select a named parameter field.  This is a semantic token, not a
+    punctuation convention such as '-' or '--'.
+
+NEXT FIELD / PREVIOUS FIELD
+    Move between syntactic fields, not merely characters or whitespace runs.
+
+FIRST FIELD / START INCANTATION
+    Jump to the beginning of the command/incantation as a structural object.
+
+LAST FIELD / END INCANTATION
+    Jump to its final field.
+
+SHOW ARGUMENTS
+    Show every flag / named parameter accepted by the current command, ideally
+    with already-used fields distinguished from unused ones.
+
+EXAMPLES
+    Show concrete examples for the current command and, when possible, examples
+    relevant to the partially entered incantation.
+
+ASK
+    Ask a question about the current command or selected field: what it means,
+    how to express some desired restriction, why the command failed, etc.
+
+The SHOW ARGUMENTS operation should be deterministic when command metadata is
+available.  ASK may use AI, but should reason over the exact interface rather
+than inventing flags.
+
+Movement is part of the same problem
+------------------------------------
+
+The existing movement vocabulary segments by characters, words, lines, pages,
+and spaces.  Add semantic segmentation.  Whitespace is only a proxy for
+structure and can have programmatic, human, or ambiguous meaning.
+
+A dedicated structural movement layer is worth considering, including explicit
+UP / DOWN and possibly diagonal movement, because the target is often a field in
+a two-dimensional or structured display rather than a character offset.
+
+A semantic 'space' operation could mean NEXT FIELD or PREVIOUS FIELD in the
+current structure.  In a command editor the fields may be flags/named arguments;
+in another context they may be expressions, table cells, form fields, or other
+parser-known units.  The key should mean movement across structure, not literal
+ASCII space.
+
+Design pressure
+---------------
+
+Push this farther than the final design may need.  man, --help, completion,
+examples, web searches, and AI questions are all ways of recovering information
+the tool or environment often already knows.  Keep these problems visible and
+open to redesign rather than treating inherited shell conventions as fixed.
