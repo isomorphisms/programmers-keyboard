@@ -23,3 +23,20 @@ MATCH DELIMITER
 DELETE CHARACTER ←
 DELETE WORD
 UNDO
+
+STRUCTURAL / SEMANTIC MOVEMENT
+PREVIOUS FIELD
+NEXT FIELD
+FIRST FIELD / START INCANTATION
+LAST FIELD / END INCANTATION
+PREVIOUS NAMED ARGUMENT
+NEXT NAMED ARGUMENT
+PREVIOUS FLAG / OPTION
+NEXT FLAG / OPTION
+UP
+DOWN
+DIAGONAL MOVEMENT — investigate a second movement layer / keypad
+
+Whitespace is not structure.  It may carry program meaning, human layout meaning,
+or both.  Keep the existing character/word/space movement, but add parser-aware
+movement whose unit is the current semantic field rather than a literal space.
