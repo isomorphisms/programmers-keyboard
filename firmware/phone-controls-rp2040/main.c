@@ -42,6 +42,7 @@ static uint8_t debounce_count[BUTTON_COUNT];
 static uint16_t event_queue[EVENT_QUEUE_SIZE];
 static uint8_t event_head;
 static uint8_t event_tail;
+static uint16_t active_usage;
 static bool release_pending;
 
 static bool queue_empty(void) {
@@ -134,16 +135,19 @@ static void hid_task(void) {
     if (release_pending) {
         if (send_consumer_usage(0u)) {
             release_pending = false;
+            active_usage = 0u;
         }
         return;
     }
 
-    if (queue_empty()) {
-        return;
+    if (active_usage == 0u) {
+        if (queue_empty()) {
+            return;
+        }
+        active_usage = queue_pop();
     }
 
-    uint16_t usage = queue_pop();
-    if (send_consumer_usage(usage)) {
+    if (send_consumer_usage(active_usage)) {
         release_pending = true;
     }
 }
