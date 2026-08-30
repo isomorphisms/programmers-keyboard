@@ -9,16 +9,22 @@ F-keys as stand-ins for phone actions.
 Button 0 emits USB HID Consumer usage `0x00cd` (`Play/Pause`).  The generic
 Linux HID input driver maps that usage to `KEY_PLAYPAUSE`; Android's generic key
 layout maps that Linux key to `MEDIA_PLAY_PAUSE` / `KEYCODE_MEDIA_PLAY_PAUSE`.
-Android's telephony compatibility rules use a short Play/Pause or Headset Hook
-press as a call hook:
+Android documents the same usage for headset call control:
 
-- incoming call -> answer
-- ongoing call -> disconnect
+- incoming call + short press -> answer
+- incoming call + long press -> reject
+- ongoing call + short press -> disconnect
+- ongoing call + long press -> mute or unmute microphone
+
+The firmware keeps `0x00cd` asserted for exactly as long as the physical HOOK
+button remains down, rather than synthesizing a fixed-duration tap.  That leaves
+short-versus-long interpretation to Android.
 
 This makes one physical **HOOK** button useful without an Android companion app
 or an F-key remapping layer.  Device/dialer behavior still has to be tested on
-the actual phone: Android's compatibility document strongly recommends this
-behavior rather than making every part of it an unconditional API guarantee.
+the actual phone: Android's telephony compatibility document strongly
+recommends the call behavior, while its USB-headset specification gives the
+same `0x00cd` mapping explicitly.
 
 ## A separate CALL probe
 
@@ -58,10 +64,11 @@ Both buttons are active-low and use RP2040 internal pull-ups:
 
 | GPIO | label | USB Consumer usage | intended experiment |
 | ---: | --- | ---: | --- |
-| 2 | HOOK | `0x00cd` | answer ringing / hang up active call |
+| 2 | HOOK | `0x00cd` | answer/reject ringing; hang up/mute active call |
 | 3 | CALL probe | `0x008c` | observe Android `CALL` behavior |
 
-Each switch simply connects its GPIO pin to GND when pressed.
+Each switch simply connects its GPIO pin to GND when pressed.  If both buttons
+are held at once, HOOK has priority.
 
 ## Build
 
@@ -80,9 +87,11 @@ keyboard":
 
 1. idle phone + HOOK: must not unexpectedly place a call;
 2. incoming call + HOOK short press: answers;
-3. active call + HOOK short press: disconnects;
-4. incoming/active/idle states + CALL probe: record exactly what the phone does;
-5. remove the accessory and confirm ordinary phone behavior is unchanged.
+3. incoming call + HOOK long press: rejects;
+4. active call + HOOK short press: disconnects;
+5. active call + HOOK long press: mutes/unmutes;
+6. incoming/active/idle states + CALL probe: record exactly what the phone does;
+7. remove the accessory and confirm ordinary phone behavior is unchanged.
 
 If Linux input tracing is available during bench testing, the expected events
 are `KEY_PLAYPAUSE` for HOOK and `KEY_PHONE` for CALL probe.
@@ -99,6 +108,8 @@ are `KEY_PLAYPAUSE` for HOOK and `KEY_PHONE` for CALL probe.
   https://github.com/torvalds/linux/blob/master/include/uapi/linux/input-event-codes.h
 - Android compatibility requirements:
   https://source.android.com/docs/compatibility/cdd
+- Android USB-headset HID mapping:
+  https://source.android.com/docs/core/interaction/accessories/headset/usb-device
 
 ## Separate hardware problem: keeping the USB-C port usable
 
