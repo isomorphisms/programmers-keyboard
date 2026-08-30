@@ -9,7 +9,6 @@
 
 #define BUTTON_COUNT 2u
 #define DEBOUNCE_SCANS 5u
-#define EVENT_QUEUE_SIZE 8u
 
 /*
  * USB HID Consumer usages, HID Usage Tables 1.5:
@@ -20,10 +19,13 @@
  *   0x00cd -> KEY_PLAYPAUSE -> Android MEDIA_PLAY_PAUSE
  *   0x008c -> KEY_PHONE     -> Android CALL
  *
- * Android telephony compatibility rules give MEDIA_PLAY_PAUSE the useful
- * headset-hook behavior: short press answers an incoming call and disconnects
- * an ongoing call.  The CALL usage is kept as a separate probe because it is
- * mapped by AOSP, but its exact action is phone/dialer state dependent.
+ * Android telephony compatibility rules give MEDIA_PLAY_PAUSE headset-hook
+ * behavior.  Short press answers an incoming call and disconnects an ongoing
+ * call.  Holding the physical button keeps the HID usage asserted so Android
+ * can also distinguish its documented long-press actions.
+ *
+ * The CALL usage is kept as a separate probe because it is mapped by AOSP, but
+ * its exact action is phone/dialer state dependent.
  */
 #define CONSUMER_PLAY_PAUSE 0x00cdu
 #define CONSUMER_MEDIA_SELECT_TELEPHONE 0x008cu
@@ -39,35 +41,8 @@ static bool raw_previous[BUTTON_COUNT];
 static bool debounced[BUTTON_COUNT];
 static uint8_t debounce_count[BUTTON_COUNT];
 
-static uint16_t event_queue[EVENT_QUEUE_SIZE];
-static uint8_t event_head;
-static uint8_t event_tail;
-static uint16_t active_usage;
-static bool release_pending;
-
-static bool queue_empty(void) {
-    return event_head == event_tail;
-}
-
-static bool queue_full(void) {
-    return (uint8_t)((event_head + 1u) % EVENT_QUEUE_SIZE) == event_tail;
-}
-
-static bool queue_usage(uint16_t usage) {
-    if (queue_full()) {
-        return false;
-    }
-
-    event_queue[event_head] = usage;
-    event_head = (uint8_t)((event_head + 1u) % EVENT_QUEUE_SIZE);
-    return true;
-}
-
-static uint16_t queue_pop(void) {
-    uint16_t usage = event_queue[event_tail];
-    event_tail = (uint8_t)((event_tail + 1u) % EVENT_QUEUE_SIZE);
-    return usage;
-}
+static uint16_t desired_usage;
+static uint16_t reported_usage;
 
 static void buttons_init(void) {
     for (uint8_t i = 0; i < BUTTON_COUNT; ++i) {
@@ -93,15 +68,19 @@ static void debounce_sample(uint8_t button_index, bool pressed) {
         ++debounce_count[button_index];
     }
 
-    if (debounce_count[button_index] < DEBOUNCE_SCANS ||
-        debounced[button_index] == pressed) {
-        return;
+    if (debounce_count[button_index] >= DEBOUNCE_SCANS) {
+        debounced[button_index] = pressed;
     }
+}
 
-    debounced[button_index] = pressed;
-    if (pressed) {
-        (void)queue_usage(button_usages[button_index]);
+static uint16_t current_usage(void) {
+    /* HOOK has priority if both physical buttons are held simultaneously. */
+    for (uint8_t i = 0; i < BUTTON_COUNT; ++i) {
+        if (debounced[i]) {
+            return button_usages[i];
+        }
     }
+    return 0u;
 }
 
 static void button_task(void) {
@@ -116,6 +95,8 @@ static void button_task(void) {
     for (uint8_t i = 0; i < BUTTON_COUNT; ++i) {
         debounce_sample(i, !gpio_get(button_pins[i]));
     }
+
+    desired_usage = current_usage();
 }
 
 static bool send_consumer_usage(uint16_t usage) {
@@ -128,27 +109,12 @@ static bool send_consumer_usage(uint16_t usage) {
 }
 
 static void hid_task(void) {
-    if (!tud_hid_ready()) {
+    if (desired_usage == reported_usage || !tud_hid_ready()) {
         return;
     }
 
-    if (release_pending) {
-        if (send_consumer_usage(0u)) {
-            release_pending = false;
-            active_usage = 0u;
-        }
-        return;
-    }
-
-    if (active_usage == 0u) {
-        if (queue_empty()) {
-            return;
-        }
-        active_usage = queue_pop();
-    }
-
-    if (send_consumer_usage(active_usage)) {
-        release_pending = true;
+    if (send_consumer_usage(desired_usage)) {
+        reported_usage = desired_usage;
     }
 }
 
