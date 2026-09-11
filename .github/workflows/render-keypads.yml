@@ -12,6 +12,7 @@ permissions:
 
 jobs:
   render:
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
     runs-on: [self-hosted, linux, debian]
     container: ghcr.io/stefan-hoeck/idris2-pack@sha256:b09b2c28f3c5857650ea3d366caf37ac99380c12a6a6cf65ea037da4023f70c3
     timeout-minutes: 30
