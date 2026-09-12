@@ -1,0 +1,53 @@
+name: Build phone control firmware
+
+on:
+  push:
+    paths:
+      - "firmware/phone-controls-rp2040/**"
+      - ".github/workflows/build-phone-controls-firmware.yml"
+  pull_request:
+    paths:
+      - "firmware/phone-controls-rp2040/**"
+      - ".github/workflows/build-phone-controls-firmware.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+
+    steps:
+      - name: Check out keyboard repository
+        uses: actions/checkout@v4
+
+      - name: Check out Raspberry Pi Pico SDK
+        uses: actions/checkout@v4
+        with:
+          repository: raspberrypi/pico-sdk
+          path: pico-sdk
+          submodules: recursive
+
+      - name: Install Arm embedded compiler
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gcc-arm-none-eabi libnewlib-arm-none-eabi
+
+      - name: Configure firmware
+        env:
+          PICO_SDK_PATH: ${{ github.workspace }}/pico-sdk
+        run: cmake -S firmware/phone-controls-rp2040 -B build/phone-controls-rp2040
+
+      - name: Build UF2
+        env:
+          PICO_SDK_PATH: ${{ github.workspace }}/pico-sdk
+        run: cmake --build build/phone-controls-rp2040 --parallel
+
+      - name: Upload flashable UF2
+        uses: actions/upload-artifact@v4
+        with:
+          name: phone-controls-uf2
+          path: build/phone-controls-rp2040/phone_controls.uf2
+          if-no-files-found: error
