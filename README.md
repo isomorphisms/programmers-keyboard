@@ -7,7 +7,7 @@ Gerbers for a keyboard THAT YOU USE EVERY DAY FOR WORK TO PERFORM YOUR PROFESSIO
 categories of keys:
 - cursor and page movement
 - signals (quit program, sleep program, shutdown)
-- math ÷ ≤ × = –
+- math ÷ ≤ × = – ⇒
 - classic programming symbols ([{ lambda dereference_pointer address_of comment assignment heredoc enclose_a_single_idea function_composition
 - regular expressions start end all any
 - concept separation _      
