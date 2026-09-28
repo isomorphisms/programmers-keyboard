@@ -7,6 +7,6 @@ math ÷ ≤ × = –
 ÷  DIVIDE
 =  EQUAL
 ≠  NOT EQUAL
-⇒  FAT ARROW
 < / ≤
 > / ≥
+⇒  FAT ARROW
