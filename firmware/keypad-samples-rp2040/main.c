@@ -140,12 +140,18 @@ static const chord_t macro_greater_equal[] = {
     {0, HID_KEY_2}, {0, HID_KEY_2}, {0, HID_KEY_6}, {0, HID_KEY_5},
     {0, HID_KEY_ENTER},
 };
+static const chord_t macro_fat_arrow[] = {
+    {KEYBOARD_MODIFIER_LEFTCTRL | KEYBOARD_MODIFIER_LEFTSHIFT, HID_KEY_U},
+    {0, HID_KEY_2}, {0, HID_KEY_1}, {0, HID_KEY_D}, {0, HID_KEY_2},
+    {0, HID_KEY_ENTER},
+};
 
 /*
- * The rendered Math layout has eight faces.  Its last two source entries are
- * paired meanings (< / <= and > / >=).  The sample treats those faces as
- * two-contact rockers: positions 6/10 are the two less-than contacts and
- * positions 7/11 are the two greater-than contacts.
+ * The rendered Math layout has nine faces: two rows of four plus a third-row
+ * fat-arrow face.  The two comparison faces are paired meanings
+ * (< / <= and > / >=).  The sample treats those faces as two-contact rockers:
+ * positions 6/10 are the two less-than contacts and positions 7/11 are the two
+ * greater-than contacts.  Position 8 is literal Unicode ⇒.
  */
 static const key_binding_t keymap[KEY_COUNT] = {
     BIND(macro_add),             /* 0: ADD */
@@ -156,7 +162,7 @@ static const key_binding_t keymap[KEY_COUNT] = {
     BIND(macro_not_equal),       /* 5: NOT EQUAL */
     BIND(macro_less),            /* 6: < rocker contact */
     BIND(macro_greater),         /* 7: > rocker contact */
-    UNUSED_BINDING,              /* 8 */
+    BIND(macro_fat_arrow),       /* 8: ⇒ */
     UNUSED_BINDING,              /* 9 */
     BIND(macro_less_equal),      /* 10: <= rocker contact */
     BIND(macro_greater_equal),   /* 11: >= rocker contact */
