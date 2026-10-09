@@ -4,10 +4,12 @@ on:
   push:
     paths:
       - "firmware/phone-controls-rp2040/**"
+      - "firmware/ick-rp2040/**"
       - ".github/workflows/build-phone-controls-firmware.yml"
   pull_request:
     paths:
       - "firmware/phone-controls-rp2040/**"
+      - "firmware/ick-rp2040/**"
       - ".github/workflows/build-phone-controls-firmware.yml"
   workflow_dispatch:
 
@@ -16,8 +18,8 @@ permissions:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
-    timeout-minutes: 40
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
 
     steps:
       - name: Check out keyboard repository
@@ -27,22 +29,24 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: raspberrypi/pico-sdk
+          ref: a1438dff1d38bd9c65dbd693f0e5db4b9ae91779
           path: pico-sdk
           submodules: recursive
 
-      - name: Install Arm embedded compiler
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y gcc-arm-none-eabi libnewlib-arm-none-eabi
+      - name: Build and qualify the bare-metal ICK compiler
+        id: ick
+        uses: ./firmware/ick-rp2040
 
       - name: Configure firmware
         env:
           PICO_SDK_PATH: ${{ github.workspace }}/pico-sdk
+          ICK_RP2040: ${{ steps.ick.outputs.compiler }}
         run: cmake -S firmware/phone-controls-rp2040 -B build/phone-controls-rp2040
 
       - name: Build UF2
         env:
           PICO_SDK_PATH: ${{ github.workspace }}/pico-sdk
+          ICK_RP2040: ${{ steps.ick.outputs.compiler }}
         run: cmake --build build/phone-controls-rp2040 --parallel
 
       - name: Upload flashable UF2
