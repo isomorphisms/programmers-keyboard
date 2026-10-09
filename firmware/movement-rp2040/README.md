@@ -30,7 +30,10 @@ Multi-character operations are emitted as press/release sequences, so `13` and `
 
 ## Build a UF2
 
-Install a recent Raspberry Pi Pico SDK and the Arm embedded GCC toolchain, then point `PICO_SDK_PATH` at the SDK checkout.
+Use Raspberry Pi Pico SDK 2.2.0 and the Arm embedded runtime, then point
+`PICO_SDK_PATH` at the SDK checkout. Build the
+[pinned bare-metal ICK compiler](../ick-rp2040/README.md) first and set
+`ICK_RP2040` to its installed `arm-none-eabi-gcc` driver.
 
 ```sh
 cd firmware/movement-rp2040

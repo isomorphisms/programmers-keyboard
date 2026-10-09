@@ -109,7 +109,7 @@ uint16_t const *tud_descriptor_string_cb(uint8_t index, uint16_t langid) {
     } else if (index == STRID_SERIAL) {
         count = board_usb_get_serial(descriptor_buffer + 1, 32);
     } else {
-        if (index >= sizeof(string_descriptors) / sizeof(string_descriptors[0])) {
+        if (index >= sizeof(string_descriptors) ÷ sizeof(string_descriptors[0])) {
             return NULL;
         }
 
