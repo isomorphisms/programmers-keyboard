@@ -72,6 +72,10 @@ are held at once, HOOK has priority.
 
 ## Build
 
+Use Pico SDK 2.2.0 and the declared Arm embedded runtime. Build the
+[pinned bare-metal ICK compiler](../ick-rp2040/README.md) first and set
+`ICK_RP2040` to its installed `arm-none-eabi-gcc` driver.
+
 ```sh
 export PICO_SDK_PATH=/path/to/pico-sdk
 cmake -S firmware/phone-controls-rp2040 -B build/phone-controls-rp2040
