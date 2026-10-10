@@ -1,3 +1,5 @@
 render-keypads/build/
 pcb/node_modules/
 pcb/dist/
+/build/
+/.ick-rp2040-source/
