@@ -146,12 +146,37 @@ static const chord_t macro_fat_arrow[] = {
     {0, HID_KEY_ENTER},
 };
 
+static const chord_t macro_superscript_minus[] = {
+    {KEYBOARD_MODIFIER_LEFTCTRL | KEYBOARD_MODIFIER_LEFTSHIFT, HID_KEY_U},
+    {0, HID_KEY_2}, {0, HID_KEY_0}, {0, HID_KEY_7}, {0, HID_KEY_B},
+    {0, HID_KEY_ENTER},
+};
+static const chord_t macro_capital_sigma[] = {
+    {KEYBOARD_MODIFIER_LEFTCTRL | KEYBOARD_MODIFIER_LEFTSHIFT, HID_KEY_U},
+    {0, HID_KEY_0}, {0, HID_KEY_3}, {0, HID_KEY_A}, {0, HID_KEY_3},
+    {0, HID_KEY_ENTER},
+};
+static const chord_t macro_capital_lambda[] = {
+    {KEYBOARD_MODIFIER_LEFTCTRL | KEYBOARD_MODIFIER_LEFTSHIFT, HID_KEY_U},
+    {0, HID_KEY_0}, {0, HID_KEY_3}, {0, HID_KEY_9}, {0, HID_KEY_B},
+    {0, HID_KEY_ENTER},
+};
+static const chord_t macro_upper_right_triangle[] = {
+    {KEYBOARD_MODIFIER_LEFTCTRL | KEYBOARD_MODIFIER_LEFTSHIFT, HID_KEY_U},
+    {0, HID_KEY_2}, {0, HID_KEY_5}, {0, HID_KEY_E}, {0, HID_KEY_5},
+    {0, HID_KEY_ENTER},
+};
+static const chord_t macro_lower_left_triangle[] = {
+    {KEYBOARD_MODIFIER_LEFTCTRL | KEYBOARD_MODIFIER_LEFTSHIFT, HID_KEY_U},
+    {0, HID_KEY_2}, {0, HID_KEY_5}, {0, HID_KEY_E}, {0, HID_KEY_3},
+    {0, HID_KEY_ENTER},
+};
+
 /*
- * The rendered Math layout has nine faces: two rows of four plus a third-row
- * fat-arrow face.  The two comparison faces are paired meanings
- * (< / <= and > / >=).  The sample treats those faces as two-contact rockers:
- * positions 6/10 are the two less-than contacts and positions 7/11 are the two
- * greater-than contacts.  Position 8 is literal Unicode ⇒.
+ * Math has 14 visible faces and 16 matrix contacts. Comparison rockers use
+ * contacts 6/10 (< / ≤) and 7/11 (> / ≥). The five new literal Unicode
+ * glyphs use positions 9 and 12–15, leaving the rocker contacts unchanged.
+ * Ctrl+Shift+U input below is Linux-host-specific, not generic USB Unicode.
  */
 static const key_binding_t keymap[KEY_COUNT] = {
     BIND(macro_add),             /* 0: ADD */
@@ -163,10 +188,13 @@ static const key_binding_t keymap[KEY_COUNT] = {
     BIND(macro_less),            /* 6: < rocker contact */
     BIND(macro_greater),         /* 7: > rocker contact */
     BIND(macro_fat_arrow),       /* 8: ⇒ */
-    UNUSED_BINDING,              /* 9 */
-    BIND(macro_less_equal),      /* 10: <= rocker contact */
-    BIND(macro_greater_equal),   /* 11: >= rocker contact */
-    UNUSED_BINDING, UNUSED_BINDING, UNUSED_BINDING, UNUSED_BINDING,
+    BIND(macro_superscript_minus), /* 9: ⁻ */
+    BIND(macro_less_equal),      /* 10: ≤ rocker contact */
+    BIND(macro_greater_equal),   /* 11: ≥ rocker contact */
+    BIND(macro_capital_sigma),   /* 12: Σ */
+    BIND(macro_capital_lambda),  /* 13: Λ */
+    BIND(macro_upper_right_triangle), /* 14: ◥ */
+    BIND(macro_lower_left_triangle),  /* 15: ◣ */
 };
 
 #elif KEYPAD_LAYOUT == LAYOUT_REGEX
