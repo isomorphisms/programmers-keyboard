@@ -48,7 +48,8 @@ mathKeys : Board
 mathKeys = MkBoard "math ÷ ≤ × = –"
   [ [ one "ADD", one "SUBTRACT", one "MULTIPLY", one "DIVIDE" ]
   , [ one "EQUAL", two "NOT" "EQUAL", three "LESS" "OR" "EQUAL", three "GREATER" "OR" "EQUAL" ]
-  , [ one "⇒" ]
+  , [ one "⇒", one "⁻" ]
+  , [ one "Σ", one "Λ", one "◥", one "◣" ]
   ]
 
 programming : Board

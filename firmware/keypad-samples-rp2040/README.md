@@ -54,7 +54,7 @@ The existing rendered layout is one row of three keys.
 
 ## Math
 
-The rendered Math layout has two rows of four faces plus a third-row `⇒` face. The text source gives the two comparison faces paired meanings, `< / ≤` and `> / ≥`. To preserve both meanings without inventing a tap/hold convention, the sample assumes each of those two faces is a two-contact rocker. The extra contacts occupy otherwise-unused matrix positions 10 and 11; their matrix coordinates are wiring choices, not extra visible key faces.
+The rendered Math layout has two rows of four faces, a third row with `⇒` and `⁻`, and a fourth row with `Σ`, `Λ`, `◥`, and `◣`. The text source gives the two comparison faces paired meanings, `< / ≤` and `> / ≥`. To preserve both meanings without inventing a tap/hold convention, the sample assumes each of those two faces is a two-contact rocker. Those extra contacts occupy matrix positions 10 and 11; they are not extra visible key faces. The five added faces use the remaining positions 9 and 12–15, filling the 4×4 matrix without displacing either rocker.
 
 For a concrete SPDT implementation, the `< / ≤` rocker can put its common on column 2, with one throw going through a diode to row 1 (position 6) and the other through a diode to row 2 (position 10). The `> / ≥` rocker can do the same on column 3 for positions 7 and 11. Two electrically independent normally-open contacts are equivalent. In either case the diode anode is on the contact/column side and the cathode is on the row side.
 
@@ -72,7 +72,16 @@ Unicode operators use the same Linux Unicode-input approach as the existing Prog
 | 10 | `≤` contact of `< / ≤` | U+2264 `≤` |
 | 7 | `>` contact of `> / ≥` | `>` |
 | 8 | FAT ARROW | U+21D2 `⇒` |
+| 9 | SUPERSCRIPT MINUS | U+207B `⁻` |
 | 11 | `≥` contact of `> / ≥` | U+2265 `≥` |
+| 12 | CAPITAL SIGMA (singular-value diagonal) | U+03A3 `Σ` |
+| 13 | CAPITAL LAMBDA (eigenvalue diagonal) | U+039B `Λ` |
+| 14 | UPPER-RIGHT TRIANGLE | U+25E5 `◥` |
+| 15 | LOWER-LEFT TRIANGLE | U+25E3 `◣` |
+
+`⁻` is a separate superscript minus, not the ordinary U+2212 minus. `Σ` and `Λ` designate diagonal matrices in common decompositions; `◥` and `◣` serve as compact upper-/lower-triangular glyphs.
+
+These new Unicode macros, like the existing ones, use Linux `Ctrl+Shift+U` hexadecimal input. Ordinary USB keyboard HID reports do not directly encode Unicode; Android and other hosts need a separately qualified input method or host binding. No physical keyboard or Android behavior is claimed here.
 
 A final PCB can choose different matrix coordinates for the second rocker contacts without changing the semantic actions or encodings.
 

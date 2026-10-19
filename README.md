@@ -8,7 +8,7 @@ The repository contains generated keypad layouts and the first routed hardware s
 
 - cursor and page movement
 - process and system signals
-- mathematical symbols such as `÷`, `≤`, `×`, `=`, `−`, and `⇒`
+- mathematical symbols such as `÷`, `≤`, `×`, `=`, `−`, `⇒`, `⁻`, `Σ`, `Λ`, `◥`, and `◣`
 - programming symbols and operations
 - regular-expression anchors and quantifiers
 - concept separation and naming
