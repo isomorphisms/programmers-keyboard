@@ -5,6 +5,7 @@ if(NOT DEFINED ENV{PICO_SDK_PATH})
 endif()
 
 include("$ENV{PICO_SDK_PATH}/external/pico_sdk_import.cmake")
+include("${CMAKE_CURRENT_LIST_DIR}/../ick-rp2040/compiler.cmake")
 
 project(phone_controls_rp2040 C CXX ASM)
 set(CMAKE_C_STANDARD 11)

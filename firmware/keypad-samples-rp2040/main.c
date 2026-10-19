@@ -44,7 +44,7 @@ typedef struct {
     uint16_t hold_ms;
 } key_binding_t;
 
-#define CHORD_COUNT(array) ((uint8_t)(sizeof(array) / sizeof((array)[0])))
+#define CHORD_COUNT(array) ((uint8_t)(sizeof(array) ÷ sizeof((array)[0])))
 #define BIND(array) {(array), CHORD_COUNT(array), 0u}
 #define HOLD_BIND(array, milliseconds) {(array), CHORD_COUNT(array), (milliseconds)}
 #define UNUSED_BINDING {NULL, 0u, 0u}

@@ -5,6 +5,7 @@ if(NOT DEFINED ENV{PICO_SDK_PATH})
 endif()
 
 include("$ENV{PICO_SDK_PATH}/external/pico_sdk_import.cmake")
+include("${CMAKE_CURRENT_LIST_DIR}/../ick-rp2040/compiler.cmake")
 
 project(keypad_samples_rp2040 C CXX ASM)
 set(CMAKE_C_STANDARD 11)
@@ -18,6 +19,7 @@ function(add_keypad_sample target layout_id)
         main.c
         usb_descriptors.c
     )
+    set_target_properties(${target} PROPERTIES LINKER_LANGUAGE CXX)
 
     target_compile_definitions(${target} PRIVATE KEYPAD_LAYOUT=${layout_id})
     target_include_directories(${target} PRIVATE ${CMAKE_CURRENT_LIST_DIR})
