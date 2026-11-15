@@ -1,10 +1,14 @@
 #include <stdbool.h>
 #include <stdint.h>
 
+#ifdef MOVEMENT_HOST_TEST
+#include "tests/platform.h"
+#else
 #include "bsp/board_api.h"
 #include "hardware/gpio.h"
 #include "pico/stdlib.h"
 #include "tusb.h"
+#endif
 
 #define ROW_COUNT 3u
 #define COL_COUNT 4u
@@ -56,6 +60,10 @@ static const macro_t keymap[KEY_COUNT] = {
 static uint8_t event_queue[EVENT_QUEUE_SIZE];
 static uint8_t event_head;
 static uint8_t event_tail;
+/* Drop-new remains the prototype policy. Saturating diagnostics make loss
+ * observable without replaying a key later or changing any key mapping. */
+static volatile uint32_t dropped_keypresses;
+static volatile uint8_t queue_high_water;
 
 static bool raw_previous[KEY_COUNT];
 static bool debounced[KEY_COUNT];
@@ -75,11 +83,18 @@ static bool queue_full(void) {
 
 static void queue_keypress(uint8_t key_index) {
     if (queue_full()) {
+        if (dropped_keypresses < UINT32_MAX) {
+            ++dropped_keypresses;
+        }
         return;
     }
 
     event_queue[event_head] = key_index;
     event_head = (uint8_t)((event_head + 1u) % EVENT_QUEUE_SIZE);
+    uint8_t queued ← (uint8_t)((event_head + EVENT_QUEUE_SIZE - event_tail) % EVENT_QUEUE_SIZE);
+    if (queued > queue_high_water) {
+        queue_high_water ← queued;
+    }
 }
 
 static uint8_t queue_pop(void) {

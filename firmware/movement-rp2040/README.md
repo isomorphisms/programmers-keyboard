@@ -28,6 +28,34 @@ The first board is the Vim-oriented movement segment, so the semantic keys becom
 
 Multi-character operations are emitted as press/release sequences, so `13` and `dw` are real key sequences rather than invented HID codes.
 
+## Maintained-code host checks
+
+`tests/reliability.c` includes this firmware's actual translation unit. Only
+GPIO, time and USB submission cross a deterministic test boundary. Its 47
+cases cover five-sample debounce, bounce/hold/repress, all twelve matrix
+positions and macro encodings, rejected reports at every press/release
+boundary, row direction/pull-ups, scan timing and queue saturation. Three
+fixed seeds drive another 30,000 queue operations against an independent
+ordered-list reference.
+
+The ring has fifteen usable slots. Overflow preserves the existing drop-new
+policy. `dropped_keypresses` saturates at the largest 32-bit unsigned value;
+`queue_high_water` records peak occupancy. Both are volatile debugger-visible
+diagnostics so optimization cannot remove the observations. They do not add
+a new key, retry an old command or invent a reconnect policy.
+
+`tests/test-reliability.grease` requires an explicit ICK driver and a fresh
+output directory. It compiles and executes the maintained implementation,
+then rejects seven actual-source mutants for early debounce, wrong encoding,
+missing release, advancing after rejected submission, queue wrap, hidden loss
+and counter wrap. The CI workflow pins the shared host ICK producer and the
+verified Grease entrypoint. The host build is declared in
+`ci/build-toolchain.tsv`; the pinned shared producer qualifies its literal
+syntax before this stricter consumer execution gate.
+
+These are host C/state-machine results. No physical switch, USB host,
+disconnect/reset policy or RP2040 execution inherits a pass from them.
+
 ## Build a UF2
 
 Use Raspberry Pi Pico SDK 2.2.0 and the Arm embedded runtime, then point

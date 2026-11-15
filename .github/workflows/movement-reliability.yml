@@ -1,0 +1,42 @@
+name: Movement maintained-code reliability
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+jobs:
+  reliability:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Build and qualify the pinned host ICK compiler
+        id: ick
+        uses: isomorphisms/ai-ci/ick-host@1492cf1bb736c56e5aed00a10a615676b4e19e49
+      - name: Acquire the qualified Grease host engine
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          repository: dilapidated-shed/grease
+          run-id: 41253994123
+          artifact-ids: 14161714564
+          merge-multiple: true
+          github-token: ${{ github.token }}
+          path: grease
+      - name: Bind the verified Grease entrypoint
+        uses: isomorphisms/ai-ci/.github/actions/charcoal-grease@ebfb667b64009f0c0bdf9dcfafb7884196786ef5
+      - name: Execute maintained firmware and targeted mutants
+        env:
+          ASAN_OPTIONS: detect_leaks=0
+          ICK_LINK_FLAG: ${{ steps.ick.outputs.link_flags }}
+        run: grease/bin/grease firmware/movement-rp2040/tests/test-reliability.grease "${{ steps.ick.outputs.compiler }}" "$RUNNER_TEMP/movement-reliability"
+      - name: Retain traces and compiler identity
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: movement-reliability
+          path: ${{ runner.temp }}/movement-reliability
+          if-no-files-found: error

@@ -1,0 +1,12 @@
+module QueueCapacity
+
+usable_capacity : Number
+usable_capacity = 15
+
+can_admit : Number → Bool
+can_admit queued = queued < usable_capacity
+
+main : IO ()
+main = do
+  printLn (can_admit 14)
+  printLn (can_admit 15)

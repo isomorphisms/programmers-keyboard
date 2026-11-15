@@ -1,0 +1,58 @@
+#!/usr/bin/env grease
+set -eu -o pipefail
+if (len(ARGV) !== 2) {
+  echo 'usage: test-reliability.grease ABSOLUTE_ICK_DRIVER NEW_OUTPUT_DIRECTORY' >&2
+  exit 2
+}
+var compiler = ARGV[0]
+var output = ARGV[1]
+var directory = $(dirname "$0")
+setvar directory = $(realpath "$directory")
+if ! test -x "$compiler" { echo 'FAIL missing selected ICK driver' >&2; exit 1 }
+if test -e "$output" { echo 'FAIL output already exists' >&2; exit 1 }
+mkdir -p "$output"
+setvar output = $(realpath "$output")
+var flags = ['-std=c11', '-O2', '-Wall', '-Wextra', '-Werror', '-DMOVEMENT_HOST_TEST', "-I$directory", "-I$directory/.."]
+# Optional, explicit restored-package support; never select another frontend.
+var support = get(ENV, 'ICK_LIBEXEC', '')
+var runtime = get(ENV, 'ICK_HOST_RUNTIME', '')
+if test -n "$support" {
+  if ! test -x "$support/cc1" { echo 'FAIL missing declared ICK frontend'; exit 1 }
+  setvar flags = flags ++ ["-B$support/"]
+}
+if test -n "$runtime" {
+  if ! test -f "$runtime/include/stdint.h" { echo 'FAIL missing declared platform runtime'; exit 1 }
+  setvar flags = flags ++ ["-B$runtime/", '-isystem', "$runtime/include", '-fno-use-linker-plugin']
+}
+var link_flag = get(ENV, 'ICK_LINK_FLAG', '')
+if test -n "$link_flag" { setvar flags = flags ++ [link_flag] }
+sha256sum "$compiler" > "$output/compiler.sha256"
+"$compiler" -dumpmachine > "$output/compiler-target.txt"
+"$compiler" @flags "$directory/reliability.c" -o "$output/reliability"
+"$output/reliability" > "$output/positive.txt"
+cat "$output/positive.txt"
+# Mutate actual maintained source and demand the intended semantic diagnostic.
+proc mutant (name, expression, diagnostic) {
+  var source = "$output/$name.c"
+  sed "$expression" "$directory/../main.c" > "$source"
+  if cmp -s "$source" "$directory/../main.c" { echo "FAIL unchanged mutant $name"; exit 1 }
+  "$compiler" @flags "-DMOVEMENT_SOURCE=\"$source\"" "$directory/reliability.c" -o "$output/$name"
+  if "$output/$name" > "$output/$name.stdout" 2> "$output/$name.stderr" {
+    echo "FAIL mutant survived: $name" >&2
+    exit 1
+  }
+  if ! grep -F "FAIL $diagnostic " "$output/$name.stderr" {
+    echo "FAIL wrong mutant diagnostic: $name" >&2
+    cat "$output/$name.stderr" >&2
+    exit 1
+  }
+  printf '%s\tREJECTED\t%s\n' "$name" "$diagnostic" >> "$output/mutants.tsv"
+}
+mutant missing-release 's/release_pending = true;/release_pending = false;/' macro_termination
+mutant early-debounce 's/#define DEBOUNCE_SCANS 5u/#define DEBOUNCE_SCANS 4u/' debounce_threshold
+mutant wrong-key 's/macro_prev_line\[\] = {{0, HID_KEY_K}}/macro_prev_line[] = {{0, HID_KEY_J}}/' macro_key
+mutant queue-wrap 's/event_tail + 1u/event_tail + 2u/' drop_preserves_order
+mutant hidden-loss 's/++dropped_keypresses;/(void)0;/' drop_observable
+mutant advance-on-rejection 's/if (tud_hid_keyboard_report(0, chord->modifier, keycodes))/if ((tud_hid_keyboard_report(0, chord->modifier, keycodes), true))/' rejected_report_retried
+mutant counter-wrap 's/if (dropped_keypresses < UINT32_MAX)/if (true)/' drop_count_saturates
+printf '\033[32mPASS maintained Movement code and seven targeted mutants\033[0m\n'
