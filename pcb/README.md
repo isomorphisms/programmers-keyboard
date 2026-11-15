@@ -89,6 +89,23 @@ reproduces three false passes in the original checker before requiring the
 repaired checker to reject them. Other cases cover hostile ZIPs, stale members,
 changed copper/JSON, valid date-only regeneration and repeated execution.
 
+## Offline supplier inputs
+
+The producer now uses the [recorded supplier material](supplier-material/README.md)
+through `tscircuit.config.js`. All original supplier-candidate lists remain
+ordered and exact. The configuration replays 52 source lookup requests and 18
+supplier footprint responses, with SHA-256 checks and source/dependency pins.
+Unknown requests cannot fall back to a live search. A network-denying preload
+and mandatory preflight also protect against the CLI's otherwise permissive
+configuration-error fallback. Bun is pinned to 1.4.4 in the workflow.
+
+The companion supplier suite checks replay, same-name scopes, changed values
+and footprints, missing/modified material, invalid response shapes, retained
+ordering, fresh returned objects and actual network refusal. Alongside the
+package suite, 57 tests exercise the maintained producer boundary. This fixes
+the reproducibility failure without altering the board or accepting a new
+supplier list. Electrical, assembly and fabrication approval remain separate.
+
 The currently checked-in run reports 63 components, 146 source traces, 125 routed PCB traces, 10 Gerber layers, and 2 drill files.
 
 This is a routing prototype, not yet a production release. Switch choice, key spacing, board outline, ESD protection, firmware, component availability, and mechanical enclosure still need human review before ordering boards.

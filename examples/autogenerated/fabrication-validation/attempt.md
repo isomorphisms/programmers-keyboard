@@ -62,7 +62,54 @@ inputs reproduce the recorded supplier metadata. This is an exporter/material
 dependency issue, not a reason to accept a changed part list or weaken the
 semantic comparison. The board is still not approved for fabrication.
 
+### Continuation: material replay implemented
+
+The earlier producer dependency is now implemented in `pcb/supplier-material/`,
+`pcb/scripts/supplier-material.mjs` and `pcb/tscircuit.config.js`. The retained
+candidate ordering is exactly the original ordering. Eighteen public supplier
+catalogue responses and 52 full lookup descriptors are hash-bound inputs. The
+default configuration contains only offline replay callbacks. Source and lock
+digests reject changed producer inputs. Missing/unknown requests never invoke
+another implementation or an online search.
+
+The first capture configuration imported a package from outside the project,
+which allowed Bun to resolve an unpinned dependency and the CLI to fall back
+after an import error. Automatic approval review rejected the potentially live
+component-search continuation. The repaired capture injected the already
+locked callback, proved candidate search offline with a refusing upstream,
+and restricted external reads to public supplier catalogue numbers only.
+The maintained path imports a network-denying preload and verifies all replay
+material before starting the CLI. The unsafe attempt is not counted as replay
+acceptance. The one-time adapter remains preserved, outside the maintained path.
+
+An actual locked Bun 1.4.4/tscircuit offline Circuit JSON export compares equal
+to the committed Circuit JSON under the existing explicit normalization,
+including all supplier candidates and the 89 warning payloads. The companion
+suite adds missing/changed input, scope, schema, aliasing, fallback and network
+controls. Full package regeneration and hosted acceptance are checked on the
+updated branch; a Circuit JSON result alone is not a full package receipt.
+
 ## Language boundary
+
+### Supplier material replay
+
+The continuation binds the exporter's external `PartsEngine` callback inputs
+and outputs as explicit material. A lookup request consists of the exact
+source-component descriptor (including its scoped generated identity) and
+literal requested footprint. A supplier lookup result is the previously
+recorded ordered supplier-candidate map, not a newly selected component.
+Supplier footprint requests map to immutable external API JSON responses or
+explicit missing-part results. Unknown, changed or missing requests fail;
+replay never reaches a live lookup. Source and dependency SHA-256 values bind
+the material to this unchanged prototype. Exported geometry and all meaningful
+metadata still pass through the actual locked tscircuit producer and comparator.
+
+The callback/configuration boundary is JavaScript because that is the maintained
+tscircuit integration interface. It extends the existing Node lane rather than
+translating the producer into another program. The Idriç inventory model remains
+the pure typed domain slice. New callback tests must prove repeat execution,
+both same-name D1 scopes, changed values/footprints, missing response material,
+retained candidate ordering and refusal of any online fallback.
 
 The domain inventory needs no new language feature. Filesystem and ZIP parsing
 are existing foreign integration boundaries, not grounds to invent another
