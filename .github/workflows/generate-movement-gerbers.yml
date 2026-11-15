@@ -78,6 +78,7 @@ jobs:
         run: node pcb/scripts/validate-output.mjs --compare-root /tmp/pkb-committed
 
       - name: Upload the complete regenerated package
+        if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: movement-prototype-fabrication

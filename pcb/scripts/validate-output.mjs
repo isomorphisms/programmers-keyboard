@@ -91,10 +91,22 @@ const normalize = (member, bytes) => /\.(gbr|drl)$/.test(member)
   : bytes
 const stableJson = value => Array.isArray(value) ? value.map(stableJson)
   : value && typeof value === "object" ? Object.fromEntries(Object.keys(value).sort().map(key => [key, stableJson(value[key])])) : value
+function firstDifference(before, after, location = "") {
+  if (Object.is(before, after)) return undefined
+  if (before && after && typeof before === "object" && typeof after === "object" && Array.isArray(before) === Array.isArray(after)) {
+    for (const key of new Set([...Object.keys(before), ...Object.keys(after)])) {
+      const difference = firstDifference(before[key], after[key], location + "/" + key)
+      if (difference) return difference
+    }
+    return undefined
+  }
+  return location + ": " + String(JSON.stringify(before)).slice(0, 240) + " => " + String(JSON.stringify(after)).slice(0, 240)
+}
 function compareRoots(root, previous) {
   validateExtracted(previous); validateArchive(previous, true)
   // No Circuit JSON fields are ignored; only object-key ordering is immaterial.
-  check(JSON.stringify(stableJson(validateCircuit(previous).circuit)) === JSON.stringify(stableJson(validateCircuit(root).circuit)), "comparison", "Circuit JSON changed")
+  const difference = firstDifference(stableJson(validateCircuit(previous).circuit), stableJson(validateCircuit(root).circuit))
+  check(!difference, "comparison", "Circuit JSON changed at " + difference)
   for (const member of required) {
     const relative = path.join("fabrication/movement-prototype-gerbers", member)
     check(Buffer.from(normalize(member, fs.readFileSync(path.join(previous, relative)))).equals(Buffer.from(normalize(member, fs.readFileSync(path.join(root, relative))))), "comparison", "changed " + member)
