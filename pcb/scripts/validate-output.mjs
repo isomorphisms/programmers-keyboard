@@ -91,6 +91,31 @@ const normalize = (member, bytes) => /\.(gbr|drl)$/.test(member)
   : bytes
 const stableJson = value => Array.isArray(value) ? value.map(stableJson)
   : value && typeof value === "object" ? Object.fromEntries(Object.keys(value).sort().map(key => [key, stableJson(value[key])])) : value
+const unorderedWarningTypes = new Set([
+  "source_refdes_convention_warning", "source_unnamed_trace_warning",
+  "source_pin_missing_trace_warning", "source_part_not_found_warning",
+  "supplier_footprint_mismatch_warning", "source_component_pins_underspecified_warning",
+  "source_no_power_pin_defined_warning", "source_no_ground_pin_defined_warning",
+])
+function semanticCircuit(rows) {
+  const ordinary = [], warnings = []
+  for (const row of rows) {
+    const item = { ...row }
+    if (unorderedWarningTypes.has(item.type)) {
+      // These diagnostic IDs are freshly randomized and have no circuit role.
+      // Keep every warning payload, source reference and multiplicity.
+      delete item[item.type + "_id"]
+      warnings.push(stableJson(item))
+    } else {
+      // The CLI hashes every project source, including this changed checker.
+      // This is export provenance, not a component/net/geometry field.
+      if (item.type === "source_project_metadata") delete item.source_filesystem_md5_hash
+      ordinary.push(stableJson(item))
+    }
+  }
+  warnings.sort((left, right) => JSON.stringify(left).localeCompare(JSON.stringify(right)))
+  return [...ordinary, ...warnings]
+}
 function firstDifference(before, after, location = "") {
   if (Object.is(before, after)) return undefined
   if (before && after && typeof before === "object" && typeof after === "object" && Array.isArray(before) === Array.isArray(after)) {
@@ -104,8 +129,7 @@ function firstDifference(before, after, location = "") {
 }
 function compareRoots(root, previous) {
   validateExtracted(previous); validateArchive(previous, true)
-  // No Circuit JSON fields are ignored; only object-key ordering is immaterial.
-  const difference = firstDifference(stableJson(validateCircuit(previous).circuit), stableJson(validateCircuit(root).circuit))
+  const difference = firstDifference(semanticCircuit(validateCircuit(previous).circuit), semanticCircuit(validateCircuit(root).circuit))
   check(!difference, "comparison", "Circuit JSON changed at " + difference)
   for (const member of required) {
     const relative = path.join("fabrication/movement-prototype-gerbers", member)

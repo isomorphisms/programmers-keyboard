@@ -181,6 +181,42 @@ test("Circuit JSON changed even though layout members agree", () => {
   circuitEdit(root, rows => { rows.find(item => item.type === "source_component" && item.name === "U1").manufacturer_part_number = "WRONG_PART" })
   negative(root, "comparison: Circuit JSON changed", ["--compare-root", previous])
 })
+test("warning IDs/order are presentation while payload remains", () => {
+  const root = fixture(), previous = fixture()
+  circuitEdit(root, rows => {
+    const warnings = rows.filter(item => item.type.includes("warning"))
+    for (const warning of warnings) warning[warning.type + "_id"] = "new-" + warning[warning.type + "_id"]
+    const first = rows.findIndex(item => item.type.includes("warning"))
+    const last = rows.findLastIndex(item => item.type.includes("warning"))
+    ;[rows[first], rows[last]] = [rows[last], rows[first]]
+  })
+  positive(root, ["--compare-root", previous])
+})
+test("changed warning payload still fails", () => {
+  const root = fixture(), previous = fixture()
+  circuitEdit(root, rows => { rows.find(item => item.type.includes("warning")).message = "different warning" })
+  negative(root, "comparison: Circuit JSON changed", ["--compare-root", previous])
+})
+test("missing warning still fails", () => {
+  const root = fixture(), previous = fixture()
+  circuitEdit(root, rows => rows.splice(rows.findIndex(item => item.type.includes("warning")), 1))
+  negative(root, "comparison: Circuit JSON changed", ["--compare-root", previous])
+})
+test("supplier candidate drift is not ignored", () => {
+  const root = fixture(), previous = fixture()
+  circuitEdit(root, rows => { rows.find(item => item.name === "R_3V3_EN" && item.type === "source_component").supplier_part_numbers.jlcpcb[1] = "DIFFERENT_PART" })
+  negative(root, "comparison: Circuit JSON changed", ["--compare-root", previous])
+})
+test("project filesystem hash is export provenance", () => {
+  const root = fixture(), previous = fixture()
+  circuitEdit(root, rows => { rows.find(item => item.type === "source_project_metadata").source_filesystem_md5_hash = "new-project-source-hash" })
+  positive(root, ["--compare-root", previous])
+})
+test("other project metadata is not ignored", () => {
+  const root = fixture(), previous = fixture()
+  circuitEdit(root, rows => { rows.find(item => item.type === "source_project_metadata").unexpected = "changed" })
+  negative(root, "comparison: Circuit JSON changed", ["--compare-root", previous])
+})
 test("changed copper in ZIP and extracted data", () => {
   const root = fixture(), previous = fixture()
   const filename = path.join(directory(root), "F_Cu.gbr")
