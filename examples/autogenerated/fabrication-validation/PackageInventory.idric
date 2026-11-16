@@ -1,0 +1,39 @@
+module PackageInventory
+
+import Data.Text
+
+data LayerRole = Copper | Mask | Paste | Legend | Fabrication | Outline
+               | PlatedDrill | NonPlatedDrill | Assembly
+
+record PackageMember where
+  constructor Member
+  filename : Text
+  role : LayerRole
+
+role_name : LayerRole → Text
+role_name Copper = "copper"
+role_name Mask = "mask"
+role_name Paste = "paste"
+role_name Legend = "legend"
+role_name Fabrication = "fabrication"
+role_name Outline = "outline"
+role_name PlatedDrill = "plated-drill"
+role_name NonPlatedDrill = "non-plated-drill"
+role_name Assembly = "assembly"
+
+required_members : List PackageMember
+required_members =
+  [ Member "B_Cu.gbr" Copper, Member "B_Mask.gbr" Mask
+  , Member "B_Paste.gbr" Paste, Member "B_SilkScreen.gbr" Legend
+  , Member "Edge_Cuts.gbr" Outline, Member "F_Cu.gbr" Copper
+  , Member "F_Fab.gbr" Fabrication, Member "F_Mask.gbr" Mask
+  , Member "F_Paste.gbr" Paste, Member "F_SilkScreen.gbr" Legend
+  , Member "bom.csv" Assembly, Member "drill.drl" PlatedDrill
+  , Member "drill_npth.drl" NonPlatedDrill, Member "pick_and_place.csv" Assembly
+  ]
+
+manifest_line : PackageMember → Text
+manifest_line member = filename member ++ "\t" ++ role_name (role member)
+
+main : IO ()
+main = traverse_ (putStrLn . manifest_line) required_members
