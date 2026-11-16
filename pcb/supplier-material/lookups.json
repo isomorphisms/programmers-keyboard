@@ -1,0 +1,1102 @@
+[
+  {
+    "request": {
+      "sourceComponent": {
+        "type": "source_component",
+        "source_component_id": "source_component_30",
+        "ftype": "simple_capacitor",
+        "name": "C_CORE",
+        "capacitance": 0.000001,
+        "display_capacitance": "1uF",
+        "are_pins_interchangeable": true,
+        "source_group_id": "source_group_0"
+      },
+      "footprinterString": "0402"
+    },
+    "response": {
+      "kind": "candidates",
+      "value": {
+        "jlcpcb": [
+          "C52923",
+          "C14445",
+          "C29266"
+        ]
+      }
+    }
+  },
+  {
+    "request": {
+      "sourceComponent": {
+        "type": "source_component",
+        "source_component_id": "source_component_31",
+        "ftype": "simple_capacitor",
+        "name": "C_USB",
+        "capacitance": 0.000001,
+        "display_capacitance": "1uF",
+        "are_pins_interchangeable": true,
+        "source_group_id": "source_group_0"
+      },
+      "footprinterString": "0402"
+    },
+    "response": {
+      "kind": "candidates",
+      "value": {
+        "jlcpcb": [
+          "C52923",
+          "C14445",
+          "C29266"
+        ]
+      }
+    }
+  },
+  {
+    "request": {
+      "sourceComponent": {
+        "type": "source_component",
+        "source_component_id": "source_component_32",
+        "ftype": "simple_capacitor",
+        "name": "C_XIN",
+        "capacitance": 1.8e-11,
+        "display_capacitance": "18pF",
+        "are_pins_interchangeable": true,
+        "source_group_id": "source_group_0"
+      },
+      "footprinterString": "0402"
+    },
+    "response": {
+      "kind": "candidates",
+      "value": {
+        "jlcpcb": [
+          "C1549",
+          "C106202",
+          "C5137554"
+        ]
+      }
+    }
+  },
+  {
+    "request": {
+      "sourceComponent": {
+        "type": "source_component",
+        "source_component_id": "source_component_33",
+        "ftype": "simple_capacitor",
+        "name": "C_XOUT",
+        "capacitance": 1.8e-11,
+        "display_capacitance": "18pF",
+        "are_pins_interchangeable": true,
+        "source_group_id": "source_group_0"
+      },
+      "footprinterString": "0402"
+    },
+    "response": {
+      "kind": "candidates",
+      "value": {
+        "jlcpcb": [
+          "C1549",
+          "C106202",
+          "C5137554"
+        ]
+      }
+    }
+  },
+  {
+    "request": {
+      "sourceComponent": {
+        "type": "source_component",
+        "source_component_id": "source_component_11",
+        "ftype": "simple_capacitor",
+        "name": "C_ADC",
+        "capacitance": 1e-7,
+        "display_capacitance": "100nF",
+        "are_pins_interchangeable": true,
+        "source_group_id": "source_group_0"
+      },
+      "footprinterString": "0402"
+    },
+    "response": {
+      "kind": "candidates",
+      "value": {
+        "jlcpcb": [
+          "C1525",
+          "C307331",
+          "C60474"
+        ]
+      }
+    }
+  },
+  {
+    "request": {
+      "sourceComponent": {
+        "type": "source_component",
+        "source_component_id": "source_component_9",
+        "ftype": "simple_capacitor",
+        "name": "C_FLASH",
+        "capacitance": 1e-7,
+        "display_capacitance": "100nF",
+        "are_pins_interchangeable": true,
+        "source_group_id": "source_group_0"
+      },
+      "footprinterString": "0402"
+    },
+    "response": {
+      "kind": "candidates",
+      "value": {
+        "jlcpcb": [
+          "C1525",
+          "C307331",
+          "C60474"
+        ]
+      }
+    }
+  },
+  {
+    "request": {
+      "sourceComponent": {
+        "type": "source_component",
+        "source_component_id": "source_component_2",
+        "ftype": "simple_capacitor",
+        "name": "C_IOVDD1",
+        "capacitance": 1e-7,
+        "display_capacitance": "100nF",
+        "are_pins_interchangeable": true,
+        "source_group_id": "source_group_0"
+      },
+      "footprinterString": "0402"
+    },
+    "response": {
+      "kind": "candidates",
+      "value": {
+        "jlcpcb": [
+          "C1525",
+          "C307331",
+          "C60474"
+        ]
+      }
+    }
+  },
+  {
+    "request": {
+      "sourceComponent": {
+        "type": "source_component",
+        "source_component_id": "source_component_3",
+        "ftype": "simple_capacitor",
+        "name": "C_IOVDD2",
+        "capacitance": 1e-7,
+        "display_capacitance": "100nF",
+        "are_pins_interchangeable": true,
+        "source_group_id": "source_group_0"
+      },
+      "footprinterString": "0402"
+    },
+    "response": {
+      "kind": "candidates",
+      "value": {
+        "jlcpcb": [
+          "C1525",
+          "C307331",
+          "C60474"
+        ]
+      }
+    }
+  },
+  {
+    "request": {
+      "sourceComponent": {
+        "type": "source_component",
+        "source_component_id": "source_component_4",
+        "ftype": "simple_capacitor",
+        "name": "C_IOVDD3",
+        "capacitance": 1e-7,
+        "display_capacitance": "100nF",
+        "are_pins_interchangeable": true,
+        "source_group_id": "source_group_0"
+      },
+      "footprinterString": "0402"
+    },
+    "response": {
+      "kind": "candidates",
+      "value": {
+        "jlcpcb": [
+          "C1525",
+          "C307331",
+          "C60474"
+        ]
+      }
+    }
+  },
+  {
+    "request": {
+      "sourceComponent": {
+        "type": "source_component",
+        "source_component_id": "source_component_5",
+        "ftype": "simple_capacitor",
+        "name": "C_IOVDD4",
+        "capacitance": 1e-7,
+        "display_capacitance": "100nF",
+        "are_pins_interchangeable": true,
+        "source_group_id": "source_group_0"
+      },
+      "footprinterString": "0402"
+    },
+    "response": {
+      "kind": "candidates",
+      "value": {
+        "jlcpcb": [
+          "C1525",
+          "C307331",
+          "C60474"
+        ]
+      }
+    }
+  },
+  {
+    "request": {
+      "sourceComponent": {
+        "type": "source_component",
+        "source_component_id": "source_component_6",
+        "ftype": "simple_capacitor",
+        "name": "C_IOVDD5",
+        "capacitance": 1e-7,
+        "display_capacitance": "100nF",
+        "are_pins_interchangeable": true,
+        "source_group_id": "source_group_0"
+      },
+      "footprinterString": "0402"
+    },
+    "response": {
+      "kind": "candidates",
+      "value": {
+        "jlcpcb": [
+          "C1525",
+          "C307331",
+          "C60474"
+        ]
+      }
+    }
+  },
+  {
+    "request": {
+      "sourceComponent": {
+        "type": "source_component",
+        "source_component_id": "source_component_7",
+        "ftype": "simple_capacitor",
+        "name": "C_IOVDD6",
+        "capacitance": 1e-7,
+        "display_capacitance": "100nF",
+        "are_pins_interchangeable": true,
+        "source_group_id": "source_group_0"
+      },
+      "footprinterString": "0402"
+    },
+    "response": {
+      "kind": "candidates",
+      "value": {
+        "jlcpcb": [
+          "C1525",
+          "C307331",
+          "C60474"
+        ]
+      }
+    }
+  },
+  {
+    "request": {
+      "sourceComponent": {
+        "type": "source_component",
+        "source_component_id": "source_component_10",
+        "ftype": "simple_capacitor",
+        "name": "C_USB_VDD",
+        "capacitance": 1e-7,
+        "display_capacitance": "100nF",
+        "are_pins_interchangeable": true,
+        "source_group_id": "source_group_0"
+      },
+      "footprinterString": "0402"
+    },
+    "response": {
+      "kind": "candidates",
+      "value": {
+        "jlcpcb": [
+          "C1525",
+          "C307331",
+          "C60474"
+        ]
+      }
+    }
+  },
+  {
+    "request": {
+      "sourceComponent": {
+        "type": "source_component",
+        "source_component_id": "source_component_1",
+        "ftype": "simple_resistor",
+        "name": "R_3V3_EN",
+        "resistance": 100000,
+        "display_resistance": "100kΩ",
+        "are_pins_interchangeable": true,
+        "source_group_id": "source_group_0"
+      },
+      "footprinterString": "0402"
+    },
+    "response": {
+      "kind": "candidates",
+      "value": {
+        "jlcpcb": [
+          "C25741",
+          "C60491",
+          "C2906859"
+        ]
+      }
+    }
+  },
+  {
+    "request": {
+      "sourceComponent": {
+        "type": "source_component",
+        "source_component_id": "source_component_21",
+        "ftype": "simple_resistor",
+        "name": "R_BOOT",
+        "resistance": 10000,
+        "display_resistance": "10kΩ",
+        "are_pins_interchangeable": true,
+        "source_group_id": "source_group_0"
+      },
+      "footprinterString": "0402"
+    },
+    "response": {
+      "kind": "candidates",
+      "value": {
+        "jlcpcb": [
+          "C25744",
+          "C60490",
+          "C25531"
+        ]
+      }
+    }
+  },
+  {
+    "request": {
+      "sourceComponent": {
+        "type": "source_component",
+        "source_component_id": "source_component_8",
+        "ftype": "simple_resistor",
+        "name": "R_RUN",
+        "resistance": 10000,
+        "display_resistance": "10kΩ",
+        "are_pins_interchangeable": true,
+        "source_group_id": "source_group_0"
+      },
+      "footprinterString": "0402"
+    },
+    "response": {
+      "kind": "candidates",
+      "value": {
+        "jlcpcb": [
+          "C25744",
+          "C60490",
+          "C25531"
+        ]
+      }
+    }
+  },
+  {
+    "request": {
+      "sourceComponent": {
+        "type": "source_component",
+        "source_component_id": "source_component_26",
+        "ftype": "simple_resistor",
+        "name": "R_USB1",
+        "resistance": 27,
+        "display_resistance": "27Ω",
+        "are_pins_interchangeable": true,
+        "source_group_id": "source_group_0"
+      },
+      "footprinterString": "0402"
+    },
+    "response": {
+      "kind": "candidates",
+      "value": {
+        "jlcpcb": [
+          "C25100",
+          "C138021",
+          "C5151586"
+        ]
+      }
+    }
+  },
+  {
+    "request": {
+      "sourceComponent": {
+        "type": "source_component",
+        "source_component_id": "source_component_27",
+        "ftype": "simple_resistor",
+        "name": "R_USB2",
+        "resistance": 27,
+        "display_resistance": "27Ω",
+        "are_pins_interchangeable": true,
+        "source_group_id": "source_group_0"
+      },
+      "footprinterString": "0402"
+    },
+    "response": {
+      "kind": "candidates",
+      "value": {
+        "jlcpcb": [
+          "C25100",
+          "C138021",
+          "C5151586"
+        ]
+      }
+    }
+  },
+  {
+    "request": {
+      "sourceComponent": {
+        "type": "source_component",
+        "source_component_id": "source_component_22",
+        "ftype": "simple_resistor",
+        "name": "R_LED",
+        "resistance": 330,
+        "display_resistance": "330Ω",
+        "are_pins_interchangeable": true,
+        "source_group_id": "source_group_0"
+      },
+      "footprinterString": "0402"
+    },
+    "response": {
+      "kind": "candidates",
+      "value": {
+        "jlcpcb": [
+          "C25104",
+          "C2906929",
+          "C105875"
+        ]
+      }
+    }
+  },
+  {
+    "request": {
+      "sourceComponent": {
+        "type": "source_component",
+        "source_component_id": "source_component_23",
+        "ftype": "simple_resistor",
+        "name": "R_PWR_LED",
+        "resistance": 330,
+        "display_resistance": "330Ω",
+        "are_pins_interchangeable": true,
+        "source_group_id": "source_group_0"
+      },
+      "footprinterString": "0402"
+    },
+    "response": {
+      "kind": "candidates",
+      "value": {
+        "jlcpcb": [
+          "C25104",
+          "C2906929",
+          "C105875"
+        ]
+      }
+    }
+  },
+  {
+    "request": {
+      "sourceComponent": {
+        "type": "source_component",
+        "source_component_id": "source_component_24",
+        "ftype": "simple_resistor",
+        "name": "R_CC1",
+        "resistance": 5100,
+        "display_resistance": "5.1kΩ",
+        "are_pins_interchangeable": true,
+        "source_group_id": "source_group_0"
+      },
+      "footprinterString": "0402"
+    },
+    "response": {
+      "kind": "candidates",
+      "value": {
+        "jlcpcb": [
+          "C25905",
+          "C2906874",
+          "C2906948"
+        ]
+      }
+    }
+  },
+  {
+    "request": {
+      "sourceComponent": {
+        "type": "source_component",
+        "source_component_id": "source_component_25",
+        "ftype": "simple_resistor",
+        "name": "R_CC2",
+        "resistance": 5100,
+        "display_resistance": "5.1kΩ",
+        "are_pins_interchangeable": true,
+        "source_group_id": "source_group_0"
+      },
+      "footprinterString": "0402"
+    },
+    "response": {
+      "kind": "candidates",
+      "value": {
+        "jlcpcb": [
+          "C25905",
+          "C2906874",
+          "C2906948"
+        ]
+      }
+    }
+  },
+  {
+    "request": {
+      "sourceComponent": {
+        "type": "source_component",
+        "source_component_id": "source_component_29",
+        "ftype": "simple_capacitor",
+        "name": "C_3V3",
+        "capacitance": 0.00001,
+        "display_capacitance": "10uF",
+        "are_pins_interchangeable": true,
+        "source_group_id": "source_group_0"
+      },
+      "footprinterString": "0603"
+    },
+    "response": {
+      "kind": "candidates",
+      "value": {
+        "jlcpcb": [
+          "C19702",
+          "C96446",
+          "C1691"
+        ]
+      }
+    }
+  },
+  {
+    "request": {
+      "sourceComponent": {
+        "type": "source_component",
+        "source_component_id": "source_component_28",
+        "ftype": "simple_capacitor",
+        "name": "C_VBUS",
+        "capacitance": 0.00001,
+        "display_capacitance": "10uF",
+        "are_pins_interchangeable": true,
+        "source_group_id": "source_group_0"
+      },
+      "footprinterString": "0603"
+    },
+    "response": {
+      "kind": "candidates",
+      "value": {
+        "jlcpcb": [
+          "C19702",
+          "C96446",
+          "C1691"
+        ]
+      }
+    }
+  },
+  {
+    "request": {
+      "sourceComponent": {
+        "type": "source_component",
+        "source_component_id": "source_component_38",
+        "ftype": "simple_test_point",
+        "name": "TP_3V3",
+        "footprint_variant": "pad",
+        "pad_shape": "circle",
+        "pad_diameter": 1.1,
+        "are_pins_interchangeable": true,
+        "source_group_id": "source_group_0"
+      },
+      "footprinterString": "smtpad_circle_d1.1"
+    },
+    "response": {
+      "kind": "candidates",
+      "value": {}
+    }
+  },
+  {
+    "request": {
+      "sourceComponent": {
+        "type": "source_component",
+        "source_component_id": "source_component_36",
+        "ftype": "simple_test_point",
+        "name": "TP_GND",
+        "footprint_variant": "pad",
+        "pad_shape": "circle",
+        "pad_diameter": 1.1,
+        "are_pins_interchangeable": true,
+        "source_group_id": "source_group_0"
+      },
+      "footprinterString": "smtpad_circle_d1.1"
+    },
+    "response": {
+      "kind": "candidates",
+      "value": {}
+    }
+  },
+  {
+    "request": {
+      "sourceComponent": {
+        "type": "source_component",
+        "source_component_id": "source_component_35",
+        "ftype": "simple_test_point",
+        "name": "TP_SWCLK",
+        "footprint_variant": "pad",
+        "pad_shape": "circle",
+        "pad_diameter": 1.1,
+        "are_pins_interchangeable": true,
+        "source_group_id": "source_group_0"
+      },
+      "footprinterString": "smtpad_circle_d1.1"
+    },
+    "response": {
+      "kind": "candidates",
+      "value": {}
+    }
+  },
+  {
+    "request": {
+      "sourceComponent": {
+        "type": "source_component",
+        "source_component_id": "source_component_37",
+        "ftype": "simple_test_point",
+        "name": "TP_SWDIO",
+        "footprint_variant": "pad",
+        "pad_shape": "circle",
+        "pad_diameter": 1.1,
+        "are_pins_interchangeable": true,
+        "source_group_id": "source_group_0"
+      },
+      "footprinterString": "smtpad_circle_d1.1"
+    },
+    "response": {
+      "kind": "candidates",
+      "value": {}
+    }
+  },
+  {
+    "request": {
+      "sourceComponent": {
+        "type": "source_component",
+        "source_component_id": "source_component_40",
+        "ftype": "simple_diode",
+        "name": "D1",
+        "are_pins_interchangeable": false,
+        "source_group_id": "source_group_1"
+      },
+      "footprinterString": "sod123"
+    },
+    "response": {
+      "kind": "candidates",
+      "value": {
+        "jlcpcb": []
+      }
+    }
+  },
+  {
+    "request": {
+      "sourceComponent": {
+        "type": "source_component",
+        "source_component_id": "source_component_58",
+        "ftype": "simple_diode",
+        "name": "D10",
+        "are_pins_interchangeable": false,
+        "source_group_id": "source_group_10"
+      },
+      "footprinterString": "sod123"
+    },
+    "response": {
+      "kind": "candidates",
+      "value": {
+        "jlcpcb": []
+      }
+    }
+  },
+  {
+    "request": {
+      "sourceComponent": {
+        "type": "source_component",
+        "source_component_id": "source_component_60",
+        "ftype": "simple_diode",
+        "name": "D11",
+        "are_pins_interchangeable": false,
+        "source_group_id": "source_group_11"
+      },
+      "footprinterString": "sod123"
+    },
+    "response": {
+      "kind": "candidates",
+      "value": {
+        "jlcpcb": []
+      }
+    }
+  },
+  {
+    "request": {
+      "sourceComponent": {
+        "type": "source_component",
+        "source_component_id": "source_component_62",
+        "ftype": "simple_diode",
+        "name": "D12",
+        "are_pins_interchangeable": false,
+        "source_group_id": "source_group_12"
+      },
+      "footprinterString": "sod123"
+    },
+    "response": {
+      "kind": "candidates",
+      "value": {
+        "jlcpcb": []
+      }
+    }
+  },
+  {
+    "request": {
+      "sourceComponent": {
+        "type": "source_component",
+        "source_component_id": "source_component_42",
+        "ftype": "simple_diode",
+        "name": "D2",
+        "are_pins_interchangeable": false,
+        "source_group_id": "source_group_2"
+      },
+      "footprinterString": "sod123"
+    },
+    "response": {
+      "kind": "candidates",
+      "value": {
+        "jlcpcb": []
+      }
+    }
+  },
+  {
+    "request": {
+      "sourceComponent": {
+        "type": "source_component",
+        "source_component_id": "source_component_44",
+        "ftype": "simple_diode",
+        "name": "D3",
+        "are_pins_interchangeable": false,
+        "source_group_id": "source_group_3"
+      },
+      "footprinterString": "sod123"
+    },
+    "response": {
+      "kind": "candidates",
+      "value": {
+        "jlcpcb": []
+      }
+    }
+  },
+  {
+    "request": {
+      "sourceComponent": {
+        "type": "source_component",
+        "source_component_id": "source_component_46",
+        "ftype": "simple_diode",
+        "name": "D4",
+        "are_pins_interchangeable": false,
+        "source_group_id": "source_group_4"
+      },
+      "footprinterString": "sod123"
+    },
+    "response": {
+      "kind": "candidates",
+      "value": {
+        "jlcpcb": []
+      }
+    }
+  },
+  {
+    "request": {
+      "sourceComponent": {
+        "type": "source_component",
+        "source_component_id": "source_component_48",
+        "ftype": "simple_diode",
+        "name": "D5",
+        "are_pins_interchangeable": false,
+        "source_group_id": "source_group_5"
+      },
+      "footprinterString": "sod123"
+    },
+    "response": {
+      "kind": "candidates",
+      "value": {
+        "jlcpcb": []
+      }
+    }
+  },
+  {
+    "request": {
+      "sourceComponent": {
+        "type": "source_component",
+        "source_component_id": "source_component_50",
+        "ftype": "simple_diode",
+        "name": "D6",
+        "are_pins_interchangeable": false,
+        "source_group_id": "source_group_6"
+      },
+      "footprinterString": "sod123"
+    },
+    "response": {
+      "kind": "candidates",
+      "value": {
+        "jlcpcb": []
+      }
+    }
+  },
+  {
+    "request": {
+      "sourceComponent": {
+        "type": "source_component",
+        "source_component_id": "source_component_52",
+        "ftype": "simple_diode",
+        "name": "D7",
+        "are_pins_interchangeable": false,
+        "source_group_id": "source_group_7"
+      },
+      "footprinterString": "sod123"
+    },
+    "response": {
+      "kind": "candidates",
+      "value": {
+        "jlcpcb": []
+      }
+    }
+  },
+  {
+    "request": {
+      "sourceComponent": {
+        "type": "source_component",
+        "source_component_id": "source_component_54",
+        "ftype": "simple_diode",
+        "name": "D8",
+        "are_pins_interchangeable": false,
+        "source_group_id": "source_group_8"
+      },
+      "footprinterString": "sod123"
+    },
+    "response": {
+      "kind": "candidates",
+      "value": {
+        "jlcpcb": []
+      }
+    }
+  },
+  {
+    "request": {
+      "sourceComponent": {
+        "type": "source_component",
+        "source_component_id": "source_component_56",
+        "ftype": "simple_diode",
+        "name": "D9",
+        "are_pins_interchangeable": false,
+        "source_group_id": "source_group_9"
+      },
+      "footprinterString": "sod123"
+    },
+    "response": {
+      "kind": "candidates",
+      "value": {
+        "jlcpcb": []
+      }
+    }
+  },
+  {
+    "request": {
+      "sourceComponent": {
+        "type": "source_component",
+        "source_component_id": "source_component_39",
+        "name": "K1",
+        "ftype": "simple_push_button",
+        "are_pins_interchangeable": true,
+        "source_group_id": "source_group_1"
+      }
+    },
+    "response": {
+      "kind": "candidates",
+      "value": {}
+    }
+  },
+  {
+    "request": {
+      "sourceComponent": {
+        "type": "source_component",
+        "source_component_id": "source_component_57",
+        "name": "K10",
+        "ftype": "simple_push_button",
+        "are_pins_interchangeable": true,
+        "source_group_id": "source_group_10"
+      }
+    },
+    "response": {
+      "kind": "candidates",
+      "value": {}
+    }
+  },
+  {
+    "request": {
+      "sourceComponent": {
+        "type": "source_component",
+        "source_component_id": "source_component_59",
+        "name": "K11",
+        "ftype": "simple_push_button",
+        "are_pins_interchangeable": true,
+        "source_group_id": "source_group_11"
+      }
+    },
+    "response": {
+      "kind": "candidates",
+      "value": {}
+    }
+  },
+  {
+    "request": {
+      "sourceComponent": {
+        "type": "source_component",
+        "source_component_id": "source_component_61",
+        "name": "K12",
+        "ftype": "simple_push_button",
+        "are_pins_interchangeable": true,
+        "source_group_id": "source_group_12"
+      }
+    },
+    "response": {
+      "kind": "candidates",
+      "value": {}
+    }
+  },
+  {
+    "request": {
+      "sourceComponent": {
+        "type": "source_component",
+        "source_component_id": "source_component_41",
+        "name": "K2",
+        "ftype": "simple_push_button",
+        "are_pins_interchangeable": true,
+        "source_group_id": "source_group_2"
+      }
+    },
+    "response": {
+      "kind": "candidates",
+      "value": {}
+    }
+  },
+  {
+    "request": {
+      "sourceComponent": {
+        "type": "source_component",
+        "source_component_id": "source_component_43",
+        "name": "K3",
+        "ftype": "simple_push_button",
+        "are_pins_interchangeable": true,
+        "source_group_id": "source_group_3"
+      }
+    },
+    "response": {
+      "kind": "candidates",
+      "value": {}
+    }
+  },
+  {
+    "request": {
+      "sourceComponent": {
+        "type": "source_component",
+        "source_component_id": "source_component_45",
+        "name": "K4",
+        "ftype": "simple_push_button",
+        "are_pins_interchangeable": true,
+        "source_group_id": "source_group_4"
+      }
+    },
+    "response": {
+      "kind": "candidates",
+      "value": {}
+    }
+  },
+  {
+    "request": {
+      "sourceComponent": {
+        "type": "source_component",
+        "source_component_id": "source_component_47",
+        "name": "K5",
+        "ftype": "simple_push_button",
+        "are_pins_interchangeable": true,
+        "source_group_id": "source_group_5"
+      }
+    },
+    "response": {
+      "kind": "candidates",
+      "value": {}
+    }
+  },
+  {
+    "request": {
+      "sourceComponent": {
+        "type": "source_component",
+        "source_component_id": "source_component_49",
+        "name": "K6",
+        "ftype": "simple_push_button",
+        "are_pins_interchangeable": true,
+        "source_group_id": "source_group_6"
+      }
+    },
+    "response": {
+      "kind": "candidates",
+      "value": {}
+    }
+  },
+  {
+    "request": {
+      "sourceComponent": {
+        "type": "source_component",
+        "source_component_id": "source_component_51",
+        "name": "K7",
+        "ftype": "simple_push_button",
+        "are_pins_interchangeable": true,
+        "source_group_id": "source_group_7"
+      }
+    },
+    "response": {
+      "kind": "candidates",
+      "value": {}
+    }
+  },
+  {
+    "request": {
+      "sourceComponent": {
+        "type": "source_component",
+        "source_component_id": "source_component_53",
+        "name": "K8",
+        "ftype": "simple_push_button",
+        "are_pins_interchangeable": true,
+        "source_group_id": "source_group_8"
+      }
+    },
+    "response": {
+      "kind": "candidates",
+      "value": {}
+    }
+  },
+  {
+    "request": {
+      "sourceComponent": {
+        "type": "source_component",
+        "source_component_id": "source_component_55",
+        "name": "K9",
+        "ftype": "simple_push_button",
+        "are_pins_interchangeable": true,
+        "source_group_id": "source_group_9"
+      }
+    },
+    "response": {
+      "kind": "candidates",
+      "value": {}
+    }
+  }
+]
